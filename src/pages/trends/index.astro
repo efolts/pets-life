@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Trends' }
+];
+---
+
+<BaseLayout
+  title="Pet Product Trends"
+  description="Stay on top of the latest pet product trends. Browse trending products for dogs, cats, and more."
+>
+  <div class="page-content">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Pet Product Trends</h1>
+        <p class="page-intro">What's working right now for pet owners. We track the products gaining momentum across categories so you can discover what others are loving.</p>
+      </header>
+
+      <div class="trend-hub-grid">
+        <a href="/trending-pet-products-this-week/" class="trend-hub-card featured">
+          <div class="trend-hub-content">
+            <span class="trend-hub-label">Updated Weekly</span>
+            <h2>Trending This Week</h2>
+            <p>This week's hottest pet products across all categories. Curated and updated every Monday.</p>
+            <span class="trend-hub-cta">View trending products</span>
+          </div>
+        </a>
+
+        <a href="/trends/dogs/" class="trend-hub-card">
+          <div class="trend-hub-content">
+            <span class="trend-hub-label">Dogs</span>
+            <h2>Dog Product Trends</h2>
+            <p>The best dog products gaining traction right now. From food and toys to health and grooming.</p>
+            <span class="trend-hub-cta">Browse dog trends</span>
+          </div>
+        </a>
+
+        <a href="/trends/cats/" class="trend-hub-card">
+          <div class="trend-hub-content">
+            <span class="trend-hub-label">Cats</span>
+            <h2>Cat Product Trends</h2>
+            <p>Trending cat products that owners are raving about. Food, toys, litter, and more.</p>
+            <span class="trend-hub-cta">Browse cat trends</span>
+          </div>
+        </a>
+      </div>
+
+      <section class="trend-info">
+        <h2>How We Track Trends</h2>
+        <p>We analyze product reviews, purchase data, social buzz, and expert recommendations to identify products that are truly gaining traction. Our editorial team independently verifies every pick. We never accept payment for product placement.</p>
+        <p>Products featured in our trends pages are updated regularly to reflect real-time momentum. When you purchase through our links, we may earn a small affiliate commission at no extra cost to you.</p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 40px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .trend-hub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .trend-hub-card {
+    display: block;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .trend-hub-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .trend-hub-card.featured {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #e6f7f5 0%, #f0faf9 100%);
+    border-color: #b3e6e0;
+  }
+
+  .trend-hub-label {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #00a498;
+    margin-bottom: 8px;
+  }
+
+  .trend-hub-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px;
+  }
+
+  .trend-hub-content p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 16px;
+  }
+
+  .trend-hub-cta {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #00a498;
+  }
+
+  .trend-hub-card:hover .trend-hub-cta {
+    text-decoration: underline;
+  }
+
+  .trend-info {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 32px;
+  }
+
+  .trend-info h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #1a1a1a;
+  }
+
+  .trend-info p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 12px;
+  }
+
+  .trend-info p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .trend-hub-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .trend-hub-card.featured {
+      grid-column: auto;
+    }
+  }
+</style>

@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Privacy Policy' }
+];
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Pets Life privacy policy. Learn how we collect, use, and protect your personal information."
+>
+  <div class="page-content">
+    <div class="container-narrow">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Privacy Policy</h1>
+        <p class="page-updated">Last updated: April 5, 2026</p>
+      </header>
+
+      <div class="legal-content">
+        <p>At Pets Life ("we," "our," or "us"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://www.pets-life.com">www.pets-life.com</a> (the "Site").</p>
+
+        <p>Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the Site.</p>
+
+        <h2>Information We Collect</h2>
+
+        <h3>Information Automatically Collected</h3>
+
+        <p>When you visit our Site, we may automatically collect certain information about your device, including:</p>
+
+        <ul>
+          <li>Your IP address</li>
+          <li>Browser type and version</li>
+          <li>Operating system</li>
+          <li>Referring URLs</li>
+          <li>Pages viewed and time spent on each page</li>
+          <li>Date and time of your visit</li>
+          <li>Other diagnostic data</li>
+        </ul>
+
+        <h3>Cookies and Tracking Technologies</h3>
+
+        <p>We use cookies and similar tracking technologies to track activity on our Site and hold certain information. Cookies are small files placed on your device. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+
+        <p>Types of cookies we use:</p>
+
+        <ul>
+          <li><strong>Essential cookies:</strong> Necessary for the Site to function properly.</li>
+          <li><strong>Analytics cookies:</strong> Help us understand how visitors interact with the Site by collecting and reporting information anonymously.</li>
+          <li><strong>Advertising cookies:</strong> Used to deliver relevant advertisements and track ad campaign performance.</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+
+        <p>We use the information we collect in the following ways:</p>
+
+        <ul>
+          <li>To operate and maintain the Site</li>
+          <li>To improve, personalize, and expand our Site</li>
+          <li>To understand and analyze how you use our Site</li>
+          <li>To develop new products, services, features, and functionality</li>
+          <li>For compliance with legal obligations</li>
+        </ul>
+
+        <h2>Third-Party Services</h2>
+
+        <h3>Amazon Associates Program</h3>
+
+        <p>Pets Life is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. As part of this program, the Site provides customized links that track referrals to Amazon. This program utilizes cookies to track visits for the purposes of assigning commission on qualifying purchases.</p>
+
+        <h3>Analytics</h3>
+
+        <p>We may use third-party analytics services (such as Google Analytics) to help analyze how visitors use the Site. These services use cookies and similar technologies to collect and analyze information about the use of the Site and report on activities and trends.</p>
+
+        <h2>Data Security</h2>
+
+        <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that no security measures are perfect, and no method of data transmission can be guaranteed against interception or other type of misuse.</p>
+
+        <h2>Third-Party Websites</h2>
+
+        <p>Our Site may contain links to third-party websites and services, including Amazon.com. We are not responsible for the privacy practices or the content of these third-party sites. We encourage you to read the privacy policy of every website you visit.</p>
+
+        <h2>Children's Privacy</h2>
+
+        <p>Our Site is not intended for children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal data, please contact us.</p>
+
+        <h2>Changes to This Privacy Policy</h2>
+
+        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date at the top of this page. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+        <h2>Contact Us</h2>
+
+        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+
+        <ul>
+          <li>By email: <a href="mailto:admin@pets-life.com">admin@pets-life.com</a></li>
+          <li>By visiting our <a href="/contact/">contact page</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .page-updated {
+    font-size: 0.88rem;
+    color: #888;
+  }
+
+  .legal-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .legal-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e6f7f5;
+  }
+
+  .legal-content h3 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-content ul {
+    margin: 0.5rem 0 1.5rem 1.5rem;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-content a {
+    color: #00a498;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .legal-content a:hover {
+    color: #008a80;
+    text-decoration: underline;
+  }
+</style>

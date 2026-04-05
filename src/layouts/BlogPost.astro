@@ -1,0 +1,211 @@
+---
+import { SITE_CONFIG } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  category: string;
+  keywords: string[];
+}
+
+const { title, description, publishDate, category, keywords } = Astro.props;
+const formattedDate = publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | {SITE_CONFIG.title}</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content={keywords.join(', ')}>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content={Astro.url}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:site_name" content={SITE_CONFIG.title}>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+
+  <!-- Schema.org markup -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "datePublished": publishDate.toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": SITE_CONFIG.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE_CONFIG.title,
+      "url": SITE_CONFIG.url
+    }
+  })} />
+
+  <link rel="canonical" href={Astro.url}>
+  <link rel="sitemap" href="/sitemap-index.xml">
+
+  <style is:global>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #2a2a2a;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #3a3a3a;
+    }
+
+    .meta {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .category-badge {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-right: 10px;
+    }
+
+    .affiliate-disclosure {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 30px 0;
+      font-size: 0.9rem;
+      color: #856404;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #FF9900;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin: 10px 0;
+      transition: background 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #cc7a00;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f5f5f5;
+      font-weight: bold;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .pros, .cons {
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .pros {
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .cons {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">{SITE_CONFIG.title}</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <div class="meta">
+        <span class="category-badge">{category}</span>
+        <time datetime={publishDate.toISOString()}>{formattedDate}</time>
+      </div>
+
+      <div class="affiliate-disclosure">
+        ℹ️ <strong>Disclosure:</strong> {SITE_CONFIG.affiliateDisclosure}
+      </div>
+
+      <slot />
+    </article>
+  </main>
+
+  <footer style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #eee; text-align: center; color: #666;">
+    <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.title}. All rights reserved.</p>
+    <p style="font-size: 0.85rem;">
+      <a href="/privacy">Privacy Policy</a> |
+      <a href="/terms">Terms of Service</a>
+    </p>
+  </footer>
+</body>
+</html>

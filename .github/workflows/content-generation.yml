@@ -1,0 +1,53 @@
+# GitHub Actions Alternative to Cloudflare Workers
+# Runs weekly to generate content autonomously
+
+name: Autonomous Content Generation
+
+on:
+  # Run every Sunday at 2 AM UTC
+  schedule:
+    - cron: '0 2 * * 0'
+
+  # Allow manual triggers
+  workflow_dispatch:
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate content
+        env:
+          KEYWORDS_EVERYWHERE_API_KEY: ${{ secrets.KEYWORDS_EVERYWHERE_API_KEY }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
+        run: node scripts/generate-content-github.js
+
+      - name: Commit and push new content
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/content/blog/*.md
+          git add public/images/*.jpg || true
+          if git diff --staged --quiet; then
+            echo "No new content to commit"
+          else
+            git commit -m "Auto-generate content: $(date +'%Y-%m-%d')"
+            git push
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "Content generation failed. Check logs."

@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Affiliate Disclosure' }
+];
+---
+
+<BaseLayout
+  title="Affiliate Disclosure"
+  description="Pets Life affiliate disclosure. Learn about our participation in the Amazon Associates program and how we maintain editorial independence."
+>
+  <div class="page-content">
+    <div class="container-narrow">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Affiliate Disclosure</h1>
+        <p class="page-updated">Last updated: April 5, 2026</p>
+      </header>
+
+      <div class="disclosure-content">
+        <div class="disclosure-highlight">
+          <p>Pets Life is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.</p>
+        </div>
+
+        <h2>What This Means</h2>
+
+        <p>When you click on a product link on our site and make a purchase on Amazon, we may earn a small commission at absolutely no extra cost to you. This is how we fund our research, testing, and the ongoing operation of this website.</p>
+
+        <p>The price you pay on Amazon is the same whether you use our affiliate links or go to Amazon directly. Our commission comes from Amazon's advertising budget, not from your pocket.</p>
+
+        <h2>Editorial Independence</h2>
+
+        <p>Our affiliate relationships do not influence our editorial content. Period.</p>
+
+        <p>We are committed to providing honest, unbiased product recommendations. Here is how we maintain editorial independence:</p>
+
+        <ul>
+          <li><strong>We never accept payment for reviews.</strong> No company can pay us to review their product or guarantee a positive review.</li>
+          <li><strong>We never accept payment for placement.</strong> Product positions in our articles are determined by merit, not by who pays the most.</li>
+          <li><strong>We recommend products we believe in.</strong> If we wouldn't use a product with our own pets, we won't recommend it to you.</li>
+          <li><strong>We include negatives.</strong> Our reviews cover both pros and cons because you deserve the full picture.</li>
+          <li><strong>We update our content.</strong> If a product we've recommended declines in quality or a better alternative emerges, we update our articles accordingly.</li>
+        </ul>
+
+        <h2>How We Use Revenue</h2>
+
+        <p>Transparency matters to us. Here is how we use the affiliate revenue we earn:</p>
+
+        <ul>
+          <li><strong>Product research and testing:</strong> We invest in hands-on testing of the products we recommend.</li>
+          <li><strong>Content creation:</strong> Revenue supports the time and effort that goes into thoroughly researching and writing each article.</li>
+          <li><strong>Website operations:</strong> Hosting, development, and maintaining the technical infrastructure of the site.</li>
+          <li><strong>Staying current:</strong> We regularly update our content to ensure recommendations remain accurate and relevant.</li>
+        </ul>
+
+        <h2>Amazon Disclaimer</h2>
+
+        <p>Pets Life is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+
+        <p>As an Amazon Associate, we earn from qualifying purchases. Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on Amazon at the time of purchase will apply.</p>
+
+        <h2>FTC Compliance</h2>
+
+        <p>In accordance with FTC guidelines, we disclose that we may receive compensation for products purchased through links on our website. We have made every effort to ensure that affiliate links are clearly identified on our site.</p>
+
+        <p>All product reviews and recommendations represent our honest opinions based on our own research and analysis. We only recommend products that we believe provide value to our readers.</p>
+
+        <h2>Questions?</h2>
+
+        <p>If you have any questions about our affiliate relationships or our editorial process, please don't hesitate to reach out. We're happy to discuss how we operate.</p>
+
+        <p>Email: <a href="mailto:admin@pets-life.com">admin@pets-life.com</a></p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .page-updated {
+    font-size: 0.88rem;
+    color: #888;
+  }
+
+  .disclosure-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .disclosure-highlight {
+    background: #f0faf9;
+    border: 1px solid #b3e6e0;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+
+  .disclosure-highlight p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .disclosure-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e6f7f5;
+  }
+
+  .disclosure-content ul {
+    margin: 0.5rem 0 1.5rem 1.5rem;
+  }
+
+  .disclosure-content li {
+    margin-bottom: 0.6rem;
+  }
+
+  .disclosure-content a {
+    color: #00a498;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .disclosure-content a:hover {
+    color: #008a80;
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,27 @@
+{
+  "name": "pets-life-automation",
+  "version": "1.0.0",
+  "description": "Autonomous affiliate content system for pets-life.com",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "scrape": "node scripts/scrape-site.js",
+    "convert": "node scripts/convert-to-astro.js",
+    "migrate": "node scripts/scrape-site.js && node scripts/convert-to-astro.js",
+    "ui": "node server.js",
+    "research": "node scripts/keyword-research.js",
+    "generate": "node scripts/generate-article.js"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^2.2.0",
+    "@astrojs/sitemap": "^3.1.0",
+    "astro": "^4.5.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.32.0"
+  }
+}

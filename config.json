@@ -1,0 +1,54 @@
+{
+  "site": {
+    "title": "Pets Life - Small Pets Care & Product Reviews",
+    "description": "Expert reviews and care guides for small pets: hamsters, guinea pigs, rabbits, ferrets, chinchillas, and birds",
+    "url": "https://pets-life.com"
+  },
+  "content": {
+    "schedule": {
+      "cron": "0 2 * * 0",
+      "articlesPerWeek": 2
+    },
+    "minWordCount": 1500,
+    "maxWordCount": 2500,
+    "tone": "friendly, helpful, and informative"
+  },
+  "targeting": {
+    "petTypes": [
+      "hamsters",
+      "guinea pigs",
+      "rabbits",
+      "ferrets",
+      "chinchillas",
+      "birds (parakeets, cockatiels, budgies)",
+      "gerbils",
+      "mice",
+      "rats"
+    ],
+    "contentTypes": [
+      "product reviews",
+      "buying guides",
+      "care guides",
+      "comparison articles"
+    ],
+    "keywordCriteria": {
+      "maxCompetition": 0.3,
+      "minVolume": 100,
+      "maxVolume": 5000,
+      "preferLongTail": true
+    }
+  },
+  "products": {
+    "minRating": 4.0,
+    "minReviews": 30,
+    "priceRange": [10, 150],
+    "categories": [
+      "Pet Supplies > Small Animals",
+      "Pet Supplies > Birds"
+    ]
+  },
+  "seo": {
+    "affiliateDisclosure": "As an Amazon Associate, I earn from qualifying purchases. This helps support our site at no extra cost to you.",
+    "author": "Pets Life Team"
+  }
+}

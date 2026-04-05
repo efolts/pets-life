@@ -1,0 +1,137 @@
+---
+import { SITE_CONFIG } from '../config';
+---
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">Pets Life</a>
+        <p class="footer-tagline">Independent pet product discovery. We highlight what's working for real pet owners.</p>
+      </div>
+
+      <div class="footer-links">
+        <ul>
+          {SITE_CONFIG.footer.map((item) => (
+            <li>
+              <a href={item.path}>{item.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-disclosure">
+      <p>{SITE_CONFIG.affiliateDisclosure}</p>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} Pets Life. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #f8f9fa;
+    border-top: 1px solid #e8e8e8;
+    margin-top: 80px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 20px 32px;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .footer-brand {
+    max-width: 400px;
+  }
+
+  .footer-logo {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #00a498;
+    text-decoration: none;
+  }
+
+  .footer-logo:hover {
+    color: #008a80;
+  }
+
+  .footer-tagline {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+
+  .footer-links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #00a498;
+  }
+
+  .footer-disclosure {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .footer-disclosure p {
+    color: #777;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    color: #999;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .footer-links ul {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>

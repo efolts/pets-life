@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../config';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Trending Pet Products This Week' }
+];
+
+const trendingProducts = [
+  {
+    title: 'KONG Classic Dog Toy',
+    description: 'The gold standard of dog toys. Stuff with treats for hours of mentally stimulating play. Durable natural rubber built for aggressive chewers. Available in multiple sizes.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71rW3Y3vq9L._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0002AR0II?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'Furminator Undercoat Deshedding Tool',
+    description: 'Reduces loose hair from shedding up to 90%. Stainless steel deshedding edge reaches through the topcoat to safely remove loose undercoat hair without damaging skin.',
+    imageUrl: 'https://m.media-amazon.com/images/I/81b8RdJZJZL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0040QW35A?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'PetSafe Easy Walk No-Pull Harness',
+    description: 'Gently discourages your dog from pulling on the leash. Front-chest leash attachment stops pulling by steering your dog to the side. Comfortable padded straps.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71HsuIBsMbL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0009ZBKG4?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'Catit Flower Drinking Fountain',
+    description: 'Three water flow settings encourage cats to drink more water. Triple-action filter keeps water clean and fresh. Compact design fits any space.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71zAJEWjqQL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0146QXOB0?tag=${SITE_CONFIG.amazonTag}`
+  }
+];
+---
+
+<BaseLayout
+  title="Trending Pet Products This Week"
+  description="Discover this week's most popular pet products. Independently curated picks that real pet owners are loving right now."
+>
+  <div class="page-content">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Trending Pet Products This Week</h1>
+        <p class="page-intro">Every week we highlight the pet products gaining traction with real pet owners. These are the picks people are actually buying and recommending right now.</p>
+      </header>
+
+      <div class="product-grid">
+        {trendingProducts.map((product) => (
+          <ProductCard
+            title={product.title}
+            description={product.description}
+            imageUrl={product.imageUrl}
+            affiliateUrl={product.affiliateUrl}
+          />
+        ))}
+      </div>
+
+      <section class="trending-note">
+        <h2>How We Pick Trending Products</h2>
+        <p>We track product reviews, social mentions, and purchase data to identify what's gaining momentum each week. Our picks are editorially independent -- we never accept payment for placement. When you buy through our links, we may earn a small commission at no extra cost to you.</p>
+      </section>
+
+      <div class="trend-categories">
+        <h2>Browse by Pet Type</h2>
+        <div class="trend-links">
+          <a href="/trends/dogs/" class="trend-link">Dog Trends</a>
+          <a href="/trends/cats/" class="trend-link">Cat Trends</a>
+          <a href="/trends/" class="trend-link">All Trends</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .trending-note {
+    margin-top: 56px;
+    padding: 32px;
+    background: #f8f9fa;
+    border-radius: 12px;
+  }
+
+  .trending-note h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #1a1a1a;
+  }
+
+  .trending-note p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .trend-categories {
+    margin-top: 48px;
+  }
+
+  .trend-categories h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+  }
+
+  .trend-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .trend-link {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #e6f7f5;
+    color: #00a498;
+    border-radius: 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .trend-link:hover {
+    background: #00a498;
+    color: #ffffff;
+  }
+</style>

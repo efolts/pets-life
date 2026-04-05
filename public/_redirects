@@ -1,0 +1,100 @@
+# 301 Redirects from old WordPress content to preserve SEO equity
+# Format: old-path new-path status-code
+# Cloudflare Pages automatically processes this file
+
+# Old dog-related articles → dogs trends page
+/best-wet-dog-food-for-chihuahua/ /trends/dogs/ 301
+/best-weight-management-dog-food-for-large-breeds/ /trends/dogs/ 301
+/best-dog-balls-chewers/ /trends/dogs/ 301
+/best-dog-chew-toys-for-teeth/ /trends/dogs/ 301
+/best-dog-crates-for-separation-anxiety/ /trends/dogs/ 301
+/best-squeaky-toy-for-chewers/ /trends/dogs/ 301
+/best-dog-food-boxers-with-sensitive-stomachs/ /trends/dogs/ 301
+/best-chew-bones-puppies/ /trends/dogs/ 301
+/best-ear-mite-medicine-dogs/ /trends/dogs/ 301
+/best-brush-long-haired-dogs/ /trends/dogs/ 301
+/best-canned-dog-food-for-sensitive-stomachs/ /trends/dogs/ 301
+/best-dremel-grinder-for-dog-nails/ /trends/dogs/ 301
+/best-dog-wormer-for-all-worms/ /trends/dogs/ 301
+/best-dog-food-with-glucosamine-and-chondroitin/ /trends/dogs/ 301
+/best-bones-teething-puppies/ /trends/dogs/ 301
+/best-dog-dental-water-additive/ /trends/dogs/ 301
+/best-cranberry-supplement-for-dogs/ /trends/dogs/ 301
+/best-dog-shampoo-for-dander/ /trends/dogs/ 301
+/best-fly-repellent-for-dogs/ /trends/dogs/ 301
+/best-pain-reliever-for-dogs/ /trends/dogs/ 301
+/best-shock-collar-for-hunting-dogs/ /trends/dogs/ 301
+/best-dog-beds-for-cocker-spaniels/ /trends/dogs/ 301
+/best-dog-food-for-american-bully/ /trends/dogs/ 301
+/best-dog-chew-toys-for-aggressive-chewers/ /trends/dogs/ 301
+/best-dog-foods-for-small-senior-dogs/ /trends/dogs/ 301
+/best-dog-muzzle-for-biting/ /trends/dogs/ 301
+/best-large-breed-puppy-food-german-shepherds/ /trends/dogs/ 301
+/best-no-bark-collars-for-small-dogs/ /trends/dogs/ 301
+/best-dog-food-sensitive-stomach-diarrhea/ /trends/dogs/ 301
+/best-dog-food-for-skin-allergies/ /trends/dogs/ 301
+/best-flea-tick-mosquito-prevention-for-dogs/ /trends/dogs/ 301
+/best-moisturizing-shampoo-for-dogs/ /trends/dogs/ 301
+/best-shampoo-for-pit-bulls/ /trends/dogs/ 301
+/best-nail-clipper-for-large-dogs/ /trends/dogs/ 301
+/best-pet-hair-remover-for-furniture/ /trends/dogs/ 301
+
+# Old cat-related articles → cats trends page
+/best-cat-carrier-for-nervous-cats/ /trends/cats/ 301
+/best-deworming-medicine-cats/ /trends/cats/ 301
+/best-no-scratch-spray-for-cats/ /trends/cats/ 301
+/best-cat-trees-for-multiple-cats/ /trends/cats/ 301
+/best-self-cleaning-litter-box-multiple-cats/ /trends/cats/ 301
+/best-flea-medicine-cats/ /trends/cats/ 301
+/best-cat-harness-no-escape/ /trends/cats/ 301
+/best-dry-cat-food-for-older-cats/ /trends/cats/ 301
+/best-cat-food-urinary-crystals/ /trends/cats/ 301
+/best-brush-for-medium-hair-cat/ /trends/cats/ 301
+/best-cat-food-for-sensitive-stomach-vomiting/ /trends/cats/ 301
+/best-cat-toys-to-keep-them-busy/ /trends/cats/ 301
+
+# Old specialty articles → homepage
+/best-bird-food-cardinals/ / 301
+/fish-tanks-faq/ / 301
+/guinea-pigs-faq/ / 301
+/best-carpet-cleaner-solution-pet-urine/ / 301
+/best-tick-killer-for-yards/ / 301
+/best-heater-for-betta-tank/ / 301
+/best-filter-for-10-gallon-tank/ / 301
+/best-terrarium-for-bearded-dragons/ / 301
+/best-saltwater-aquarium-starter-kit/ / 301
+/best-bird-cage-for-lovebirds/ / 301
+/best-horse-feed-on-the-market/ / 301
+
+# Old WordPress category URLs → new category pages or homepage
+/category/aquariums/ / 301
+/category/backyard/ / 301
+/category/dog-accessories/ /trends/dogs/ 301
+/category/cat-accessories/ /trends/cats/ 301
+/category/cat-tree/ /trends/cats/ 301
+/category/leashes/ /trends/dogs/ 301
+/category/guinea-pigs/ / 301
+/category/cleaning/ / 301
+/category/grooming/ /trends/dogs/ 301
+/category/medicine/ / 301
+/category/dog-food/ /trends/dogs/ 301
+/category/bird-food/ / 301
+/category/dog-toys/ /trends/dogs/ 301
+/category/dog-crate/ /trends/dogs/ 301
+/category/cat-toys/ /trends/cats/ 301
+/category/terrariums/ / 301
+/category/horse-feed/ / 301
+/category/cat-carrier/ /trends/cats/ 301
+/category/muzzles/ /trends/dogs/ 301
+/category/bird-cage/ / 301
+/category/dog-beds/ /trends/dogs/ 301
+/category/litter-boxes/ /trends/cats/ 301
+/category/dog-shampoo/ /trends/dogs/ 301
+/category/cat-food/ /trends/cats/ 301
+
+# Old WordPress system URLs
+/wp-admin/* / 301
+/wp-login.php / 301
+/wp-content/* / 301
+/feed/ / 301
+/comments/feed/ / 301

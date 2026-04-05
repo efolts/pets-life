@@ -1,0 +1,46 @@
+---
+import { getAffiliateLink } from '../config';
+
+interface Props {
+  asin: string;
+  text?: string;
+  productName?: string;
+}
+
+const { asin, text = 'Check Current Price on Amazon', productName } = Astro.props;
+const affiliateUrl = getAffiliateLink(asin);
+---
+
+<a
+  href={affiliateUrl}
+  target="_blank"
+  rel="nofollow noopener sponsored"
+  class="cta-button"
+  data-product={productName}
+>
+  {text}
+</a>
+
+<style>
+  .cta-button {
+    display: inline-block;
+    background: #00a498;
+    color: #ffffff;
+    padding: 12px 28px;
+    text-decoration: none;
+    border-radius: 28px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 10px 0;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+  }
+
+  .cta-button:hover {
+    background: #008a80;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 164, 152, 0.3);
+    color: #ffffff;
+  }
+</style>

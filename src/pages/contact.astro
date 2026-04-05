@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Contact' }
+];
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Get in touch with the Pets Life team. We're always looking for ways to improve our site and love hearing from pet owners."
+>
+  <div class="page-content">
+    <div class="container-narrow">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Contact Us</h1>
+      </header>
+
+      <div class="contact-content">
+        <p class="lead">We're always looking for ways to improve our site and we genuinely love hearing from pet owners.</p>
+
+        <p>Whether you have a question about a product we've recommended, a suggestion for something we should review, or just want to share your experience, we'd love to hear from you.</p>
+
+        <div class="contact-card">
+          <h2>Get In Touch</h2>
+          <p>The best way to reach us is by email:</p>
+          <a href="mailto:admin@pets-life.com" class="contact-email">admin@pets-life.com</a>
+        </div>
+
+        <h2>What You Can Reach Out About</h2>
+
+        <ul>
+          <li><strong>Product suggestions:</strong> Know a great pet product we should check out? Let us know.</li>
+          <li><strong>Corrections:</strong> If you spot an error in any of our articles, we want to fix it. Please include the article URL and what needs to be corrected.</li>
+          <li><strong>General questions:</strong> Questions about our site, our process, or anything else pet-related.</li>
+          <li><strong>Business inquiries:</strong> For partnership or advertising inquiries, please use the email above with "Business" in the subject line.</li>
+        </ul>
+
+        <h2>Response Time</h2>
+
+        <p>We're a small team, so please allow 1-2 business days for a response. We read every email and do our best to reply to all genuine inquiries.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+
+  .contact-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .contact-content .lead {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .contact-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e6f7f5;
+  }
+
+  .contact-card {
+    background: #f0faf9;
+    border: 1px solid #b3e6e0;
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0 32px;
+    text-align: center;
+  }
+
+  .contact-card h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px;
+    padding: 0;
+    border: none;
+  }
+
+  .contact-card p {
+    color: #555;
+    margin: 0 0 16px;
+  }
+
+  .contact-email {
+    display: inline-block;
+    background: #00a498;
+    color: #ffffff;
+    padding: 12px 32px;
+    border-radius: 28px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .contact-email:hover {
+    background: #008a80;
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+
+  .contact-content ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+  }
+
+  .contact-content li {
+    margin-bottom: 0.6rem;
+  }
+</style>

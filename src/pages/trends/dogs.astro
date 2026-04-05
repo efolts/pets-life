@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../../config';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Trends', href: '/trends/' },
+  { label: 'Dogs' }
+];
+
+const dogProducts = [
+  {
+    title: 'KONG Classic Dog Toy',
+    description: 'The gold standard of dog toys. Stuff with treats for hours of mentally stimulating play. Ultra-durable natural rubber for power chewers. Bounces unpredictably for exciting fetch games.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71rW3Y3vq9L._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0002AR0II?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'Furminator Undercoat Deshedding Tool',
+    description: 'Reduces loose hair from shedding up to 90%. Stainless steel deshedding edge reaches safely through the topcoat to remove loose undercoat hair. FURejector button for easy cleanup.',
+    imageUrl: 'https://m.media-amazon.com/images/I/81b8RdJZJZL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0040QW35A?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'PetSafe Easy Walk No-Pull Dog Harness',
+    description: 'Gently discourages pulling with front-chest leash attachment. Belly strap sits across the breastbone, not the throat. Quick-snap buckles make it easy to put on and take off.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71HsuIBsMbL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0009ZBKG4?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'Outward Hound Fun Feeder Slow Bowl',
+    description: 'Maze-like ridges slow eating up to 10x. Helps reduce bloat, regurgitation, and obesity in dogs. Non-slip base prevents sliding. Dishwasher safe for easy cleaning.',
+    imageUrl: 'https://m.media-amazon.com/images/I/81LgfnjVbEL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B00FPKNRCS?tag=${SITE_CONFIG.amazonTag}`
+  }
+];
+---
+
+<BaseLayout
+  title="Trending Dog Products"
+  description="Discover the dog products gaining traction this week. Independently curated picks that real dog owners are buying and recommending."
+>
+  <div class="page-content">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Trending Dog Products</h1>
+        <p class="page-intro">The dog products real owners are loving right now. From durable toys to grooming essentials, these are the picks gaining serious momentum.</p>
+      </header>
+
+      <div class="product-grid">
+        {dogProducts.map((product) => (
+          <ProductCard
+            title={product.title}
+            description={product.description}
+            imageUrl={product.imageUrl}
+            affiliateUrl={product.affiliateUrl}
+          />
+        ))}
+      </div>
+
+      <section class="related-trends">
+        <h2>More Trends</h2>
+        <div class="related-links">
+          <a href="/trends/cats/" class="related-link">Cat Trends</a>
+          <a href="/trending-pet-products-this-week/" class="related-link">All Trending This Week</a>
+          <a href="/trends/" class="related-link">Trends Hub</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .related-trends {
+    margin-top: 56px;
+  }
+
+  .related-trends h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .related-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .related-link {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #e6f7f5;
+    color: #00a498;
+    border-radius: 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .related-link:hover {
+    background: #00a498;
+    color: #ffffff;
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../../config';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Trends', href: '/trends/' },
+  { label: 'Cats' }
+];
+
+const catProducts = [
+  {
+    title: 'Catit Flower Drinking Fountain',
+    description: 'Three water flow settings encourage cats to drink more water. Triple-action filter keeps water clean and fresh. Compact design fits any space. Easy to disassemble and clean.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71zAJEWjqQL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B0146QXOB0?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'PetFusion Ultimate Cat Scratcher Lounge',
+    description: 'Award-winning design doubles as a scratcher and lounge. Recycled cardboard construction is eco-friendly. Reversible for double the life. Curves naturally attract cats to scratch.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71WHIN1WHPL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B004X6UQ46?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'IRIS USA Top Entry Cat Litter Box',
+    description: 'Top-entry design keeps litter inside the box, not on your floors. Built-in grooved lid catches litter from paws. Large interior space for comfortable use. Snap-on lid for easy cleaning.',
+    imageUrl: 'https://m.media-amazon.com/images/I/71HbHUDN6wL._AC_SL1500_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B00KXM2Y24?tag=${SITE_CONFIG.amazonTag}`
+  },
+  {
+    title: 'Yeowww! Catnip Banana Toy',
+    description: 'Filled with 100% organically grown catnip. Durable cotton twill fabric stands up to bunny kicks. No fillers, no plastic, no chemicals. Hand-made in the USA. Cat-tested and approved.',
+    imageUrl: 'https://m.media-amazon.com/images/I/61F5VXvhEGL._AC_SL1000_.jpg',
+    affiliateUrl: `https://www.amazon.com/dp/B000AUJFHE?tag=${SITE_CONFIG.amazonTag}`
+  }
+];
+---
+
+<BaseLayout
+  title="Trending Cat Products"
+  description="Discover the cat products gaining traction this week. Independently curated picks that real cat owners are buying and recommending."
+>
+  <div class="page-content">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>Trending Cat Products</h1>
+        <p class="page-intro">The cat products real owners are loving right now. From fountains and scratchers to litter solutions and toys, these are the picks gaining serious momentum.</p>
+      </header>
+
+      <div class="product-grid">
+        {catProducts.map((product) => (
+          <ProductCard
+            title={product.title}
+            description={product.description}
+            imageUrl={product.imageUrl}
+            affiliateUrl={product.affiliateUrl}
+          />
+        ))}
+      </div>
+
+      <section class="related-trends">
+        <h2>More Trends</h2>
+        <div class="related-links">
+          <a href="/trends/dogs/" class="related-link">Dog Trends</a>
+          <a href="/trending-pet-products-this-week/" class="related-link">All Trending This Week</a>
+          <a href="/trends/" class="related-link">Trends Hub</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .related-trends {
+    margin-top: 56px;
+  }
+
+  .related-trends h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .related-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .related-link {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #e6f7f5;
+    color: #00a498;
+    border-radius: 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .related-link:hover {
+    background: #00a498;
+    color: #ffffff;
+  }
+</style>

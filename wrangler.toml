@@ -1,0 +1,31 @@
+# Cloudflare Worker Configuration
+
+name = "pets-life-content-generator"
+main = "workers/content-generator.js"
+compatibility_date = "2024-03-01"
+
+# Cron trigger - runs every Sunday at 2 AM UTC
+[triggers]
+crons = ["0 2 * * 0"]
+
+# Environment variables (secrets set via CLI)
+[vars]
+# Non-sensitive vars can go here
+
+# KV namespace for tracking
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+# R2 bucket for image storage
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "pets-life-images"
+preview_bucket_name = "pets-life-images-preview"
+
+# Secrets (set with: wrangler secret put SECRET_NAME)
+# - CLAUDE_API_KEY
+# - GITHUB_TOKEN
+# - WORKER_AUTH_TOKEN
+# - AMAZON_AFFILIATE_TAG

@@ -1,0 +1,294 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { SITE_CONFIG } from '../../config';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+
+  // Get unique categories from posts
+  const postCategories = [...new Set(allPosts.map((post) => post.data.category))];
+
+  // Build paths from both config categories and actual post categories
+  const configSlugs = SITE_CONFIG.categories.map((cat) => ({
+    slug: cat.slug,
+    name: cat.name
+  }));
+
+  // Add any post categories not in config
+  for (const category of postCategories) {
+    const slug = category.toLowerCase().replace(/\s+/g, '-');
+    if (!configSlugs.find((c) => c.slug === slug)) {
+      configSlugs.push({ slug, name: category });
+    }
+  }
+
+  return configSlugs.map(({ slug, name }) => {
+    const categoryPosts = allPosts
+      .filter((post) => {
+        const postSlug = post.data.category.toLowerCase().replace(/\s+/g, '-');
+        return postSlug === slug || post.data.category.toLowerCase() === name.toLowerCase();
+      })
+      .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+    return {
+      params: { slug },
+      props: { categoryName: name, posts: categoryPosts }
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const { categoryName, posts } = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: categoryName }
+];
+---
+
+<BaseLayout
+  title={categoryName}
+  description={`Browse all ${categoryName} articles on Pets Life. Product reviews, guides, and recommendations.`}
+>
+  <div class="page-content">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>{categoryName}</h1>
+        <p class="page-intro">
+          {posts.length > 0
+            ? `Browse ${posts.length} article${posts.length !== 1 ? 's' : ''} about ${categoryName.toLowerCase()}.`
+            : `We're working on content for ${categoryName.toLowerCase()}. Check back soon.`
+          }
+        </p>
+      </header>
+
+      {posts.length > 0 ? (
+        <div class="articles-grid">
+          {posts.map((post) => (
+            <a href={`/${post.slug}/`} class="article-card">
+              {post.data.coverImage && (
+                <div class="article-image">
+                  <img src={post.data.coverImage} alt={post.data.title} loading="lazy" width="400" height="225" />
+                </div>
+              )}
+              <div class="article-content">
+                <h2 class="article-title">{post.data.title}</h2>
+                <p class="article-excerpt">{post.data.description}</p>
+                <div class="article-meta">
+                  <span class="article-date">
+                    {post.data.publishDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </span>
+                  <span class="article-author">by {post.data.author}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>No articles in this category yet. In the meantime, check out our <a href="/trending-pet-products-this-week/">trending products</a> or browse our <a href="/">latest articles</a>.</p>
+        </div>
+      )}
+
+      <section class="all-categories">
+        <h2>All Categories</h2>
+        <div class="category-grid">
+          {SITE_CONFIG.categories.map((cat) => (
+            <a
+              href={`/category/${cat.slug}/`}
+              class:list={['category-pill', { active: cat.slug === slug }]}
+            >
+              {cat.name}
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 36px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Articles Grid */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .article-card {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .article-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+
+  .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .article-card:hover .article-image img {
+    transform: scale(1.05);
+  }
+
+  .article-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .article-excerpt {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    flex: 1;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+
+  .article-author {
+    color: #999;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin-bottom: 56px;
+  }
+
+  .empty-state p {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .empty-state a {
+    color: #00a498;
+    font-weight: 600;
+  }
+
+  .empty-state a:hover {
+    text-decoration: underline;
+  }
+
+  /* All Categories Section */
+  .all-categories {
+    margin-top: 40px;
+  }
+
+  .all-categories h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .category-pill {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #f5f5f5;
+    border: 1px solid #e8e8e8;
+    border-radius: 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+  }
+
+  .category-pill:hover {
+    border-color: #00a498;
+    color: #00a498;
+    background: #f0faf9;
+  }
+
+  .category-pill.active {
+    background: #00a498;
+    border-color: #00a498;
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

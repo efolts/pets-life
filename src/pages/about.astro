@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'About' }
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Pets Life is an independent pet product discovery site. We highlight what's working for real pet owners with practical, transparent, and current recommendations."
+>
+  <div class="page-content">
+    <div class="container-narrow">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <header class="page-header">
+        <h1>About Pets Life</h1>
+      </header>
+
+      <div class="about-content">
+        <p class="lead">We love pets.</p>
+
+        <p class="lead">It's no secret... we're obsessed with what pets actually need.</p>
+
+        <p>Pets Life is an independent pet product discovery site. We spend our time researching, testing, and reviewing the products that make a real difference in the lives of pets and their owners.</p>
+
+        <p>We are not a big media company with a massive editorial team and unlimited resources. We are a small group of pet enthusiasts who believe that honest, independent product recommendations should be accessible to everyone.</p>
+
+        <h2>What We Do</h2>
+
+        <p>We highlight what's working. Every product we feature has been evaluated based on real-world performance, owner reviews, and expert input. We look at what people are actually buying, what they're recommending to friends, and what's standing the test of time.</p>
+
+        <p>Our approach is simple:</p>
+
+        <ul>
+          <li><strong>Practical.</strong> We focus on products that solve real problems for real pet owners. No gimmicks, no fluff.</li>
+          <li><strong>Transparent.</strong> We clearly disclose our affiliate relationships. When you buy through our links, we earn a small commission at no extra cost to you. This is how we keep the lights on.</li>
+          <li><strong>Current.</strong> Pet products evolve constantly. We update our recommendations regularly to reflect what's actually worth buying right now.</li>
+        </ul>
+
+        <h2>Our Independence</h2>
+
+        <p>We never accept payment for product placement or reviews. Our editorial picks are based entirely on merit. If a product isn't good enough for our own pets, it doesn't make our site.</p>
+
+        <h2>Contact Us</h2>
+
+        <p>Have a question, suggestion, or just want to share a photo of your pet? We'd love to hear from you.</p>
+
+        <p>Email: <a href="mailto:admin@pets-life.com">admin@pets-life.com</a></p>
+
+        <p>You can also reach us through our <a href="/contact/">contact page</a>.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-content {
+    padding: 40px 0;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .page-header h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+
+  .about-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .about-content .lead {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .about-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e6f7f5;
+  }
+
+  .about-content ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+  }
+
+  .about-content li {
+    margin-bottom: 0.6rem;
+  }
+
+  .about-content a {
+    color: #00a498;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .about-content a:hover {
+    color: #008a80;
+    text-decoration: underline;
+  }
+</style>
