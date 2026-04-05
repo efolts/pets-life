@@ -22,7 +22,7 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 
-const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const AMAZON_AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'petslife-20';
 
 // Colors for terminal output
@@ -99,44 +99,42 @@ function selectNextKeyword(ideas, published) {
 }
 
 /**
- * Generate article content using Claude API
+ * Generate article content using Gemini API
  */
 async function generateArticle(keyword) {
-  log.step('🤖 Generating article with Claude API...');
+  log.step('🤖 Generating article with Gemini API...');
   log.info(`Keyword: "${keyword.keyword}"`);
   log.info(`Type: ${keyword.type}`);
   log.info(`Volume: ${keyword.volume} | Competition: ${keyword.competition.toFixed(2)}`);
 
   const prompt = buildPrompt(keyword);
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': CLAUDE_API_KEY,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-opus-4-6',
-      max_tokens: 4000,
-      messages: [{
-        role: 'user',
-        content: prompt,
-      }],
-    }),
-  });
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          maxOutputTokens: 16384,
+          temperature: 0.7,
+        },
+      }),
+    }
+  );
 
   if (!response.ok) {
     const error = await response.text();
-    throw new Error(`Claude API error: ${response.status} - ${error}`);
+    throw new Error(`Gemini API error: ${response.status} - ${error}`);
   }
 
   const data = await response.json();
-  return data.content[0].text;
+  return data.candidates[0].content.parts[0].text;
 }
 
 /**
- * Build Claude prompt
+ * Build article generation prompt
  */
 function buildPrompt(keyword) {
   const category = detectCategory(keyword.keyword);
@@ -288,7 +286,7 @@ async function publishToGitHub(filePath, title) {
     log.success('File staged');
 
     // Git commit
-    const commitMessage = `Add article: ${title}\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`;
+    const commitMessage = `Add article: ${title}`;
     await execAsync(`git commit -m "${commitMessage}"`);
     log.success('Committed to local repository');
 
@@ -321,9 +319,9 @@ ${colors.reset}
   `);
 
   // Validate API key
-  if (!CLAUDE_API_KEY) {
-    log.error('CLAUDE_API_KEY not found in .env');
-    log.info('Add your API key to .env file');
+  if (!GEMINI_API_KEY) {
+    log.error('GEMINI_API_KEY not found in .env');
+    log.info('Add your Gemini API key to .env file');
     process.exit(1);
   }
 

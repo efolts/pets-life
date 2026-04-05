@@ -85,19 +85,19 @@ const SEED_KEYWORDS = [
  * Fetch keyword data from Keywords Everywhere API
  */
 async function getKeywordData(keywords) {
+  const params = new URLSearchParams();
+  params.append('country', 'us');
+  params.append('currency', 'USD');
+  params.append('dataSource', 'gkp');
+  keywords.forEach(kw => params.append('kw[]', kw));
+
   const response = await fetch(API_ENDPOINT, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Authorization': `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      country: 'us',
-      currency: 'USD',
-      dataSource: 'gkp',
-      'kw[]': keywords
-    })
+    body: params,
   });
 
   if (!response.ok) {
@@ -113,34 +113,32 @@ async function getKeywordData(keywords) {
 function analyzeKeywords(data) {
   const opportunities = [];
 
-  for (const [keyword, metrics] of Object.entries(data.data || {})) {
+  // API returns data as an array of keyword objects
+  for (const metrics of (data.data || [])) {
+    const keyword = metrics.keyword;
     const volume = metrics.vol || 0;
-    const competition = metrics.competition || 1;
+    const competition = metrics.competition || 0;
     const cpc = parseFloat(metrics.cpc?.value || 0);
 
-    // Opportunity score formula
-    // Higher volume + lower competition + decent CPC = better
-    const opportunityScore = (volume / 100) * (1 - competition) * (cpc > 0.5 ? 1.5 : 1);
+    // Skip zero-volume keywords
+    if (volume === 0) continue;
 
-    // Filter criteria
-    const isGoodOpportunity =
-      volume >= 100 &&        // Minimum traffic
-      volume <= 5000 &&       // Not too competitive
-      competition <= 0.3 &&   // Low competition
-      cpc >= 0.3;            // Some commercial intent
+    // Score: favor volume, reward lower competition, bonus for CPC (commercial intent)
+    const opportunityScore = Math.round(
+      (volume / 100) * (1.1 - competition) * (cpc > 0.2 ? 1.5 : 1) * 100
+    ) / 100;
 
-    if (isGoodOpportunity) {
-      opportunities.push({
-        keyword,
-        volume,
-        competition,
-        cpc,
-        opportunityScore: Math.round(opportunityScore * 100) / 100,
-        difficulty: competition < 0.1 ? 'Very Easy' :
-                   competition < 0.2 ? 'Easy' :
-                   competition < 0.3 ? 'Medium' : 'Hard'
-      });
-    }
+    opportunities.push({
+      keyword,
+      volume,
+      competition,
+      cpc,
+      opportunityScore,
+      difficulty: competition < 0.3 ? 'Very Easy' :
+                 competition < 0.5 ? 'Easy' :
+                 competition < 0.7 ? 'Medium' :
+                 competition < 0.9 ? 'Hard' : 'Very Hard',
+    });
   }
 
   // Sort by opportunity score (best first)

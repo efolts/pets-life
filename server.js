@@ -28,7 +28,7 @@ app.use(express.static('public'));
 
 // Configuration
 const CONFIG = {
-  claudeApiKey: process.env.CLAUDE_API_KEY,
+  geminiApiKey: process.env.GEMINI_API_KEY,
   keywordsApiKey: process.env.KEYWORDS_EVERYWHERE_API_KEY,
   amazonTag: process.env.AMAZON_AFFILIATE_TAG || 'petslife-20',
   amazonAccessKey: process.env.AMAZON_ACCESS_KEY,
@@ -55,7 +55,7 @@ app.get('/api/status', async (req, res) => {
 
   res.json({
     configured: {
-      claude: !!CONFIG.claudeApiKey,
+      gemini: !!CONFIG.geminiApiKey,
       keywords: !!CONFIG.keywordsApiKey,
       amazon: !!CONFIG.amazonTag,
       amazonApi: !!(CONFIG.amazonAccessKey && CONFIG.amazonSecretKey),
@@ -119,8 +119,8 @@ app.get('/api/keywords', (req, res) => {
  */
 app.post('/api/generate', async (req, res) => {
   try {
-    if (!CONFIG.claudeApiKey) {
-      return res.status(400).json({ error: 'Claude API key not configured' });
+    if (!CONFIG.geminiApiKey) {
+      return res.status(400).json({ error: 'Gemini API key not configured. Add GEMINI_API_KEY to .env' });
     }
 
     // Get next keyword
@@ -174,7 +174,7 @@ app.post('/api/publish', async (req, res) => {
     // Git operations
     await execAsync(`git add "${filePath}"`);
 
-    const commitMessage = `Add article: ${title}\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`;
+    const commitMessage = `Add article: ${title}`;
     await execAsync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`);
 
     await execAsync('git push');
@@ -202,7 +202,7 @@ app.get('/api/articles', (req, res) => {
 
   const files = readdirSync(blogDir);
   const articles = files
-    .filter(f => f.endsWith('.md'))
+    .filter(f => f.endsWith('.md') || f.endsWith('.mdx'))
     .map(file => {
       const content = readFileSync(`${blogDir}/${file}`, 'utf8');
       const frontmatterMatch = content.match(/---\n([\s\S]+?)\n---/);
@@ -280,42 +280,50 @@ async function runKeywordResearch() {
   let allOpportunities = [];
 
   for (const batch of batches) {
+    // Keywords Everywhere expects form-encoded data
+    const params = new URLSearchParams();
+    params.append('country', 'us');
+    params.append('currency', 'USD');
+    params.append('dataSource', 'gkp');
+    batch.forEach(kw => params.append('kw[]', kw));
+
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Authorization': `Bearer ${CONFIG.keywordsApiKey}`,
-        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        country: 'us',
-        currency: 'USD',
-        dataSource: 'gkp',
-        'kw[]': batch,
-      }),
+      body: params,
     });
 
-    const data = await response.json();
+    const result = await response.json();
 
-    // Analyze keywords
-    for (const [keyword, metrics] of Object.entries(data.data || {})) {
+    // API returns data as an array of keyword objects
+    for (const metrics of (result.data || [])) {
+      const keyword = metrics.keyword;
       const volume = metrics.vol || 0;
-      const competition = metrics.competition || 1;
+      const competition = metrics.competition || 0;
       const cpc = parseFloat(metrics.cpc?.value || 0);
-      const opportunityScore = (volume / 100) * (1 - competition) * (cpc > 0.5 ? 1.5 : 1);
 
-      if (volume >= 100 && volume <= 5000 && competition <= 0.3 && cpc >= 0.3) {
-        allOpportunities.push({
-          keyword,
-          volume,
-          competition,
-          cpc,
-          opportunityScore: Math.round(opportunityScore * 100) / 100,
-          difficulty: competition < 0.1 ? 'Very Easy' :
-                     competition < 0.2 ? 'Easy' :
-                     competition < 0.3 ? 'Medium' : 'Hard',
-        });
-      }
+      // Skip zero-volume keywords
+      if (volume === 0) continue;
+
+      // Score: favor volume, reward lower competition, bonus for CPC (commercial intent)
+      const opportunityScore = Math.round(
+        (volume / 100) * (1.1 - competition) * (cpc > 0.2 ? 1.5 : 1) * 100
+      ) / 100;
+
+      allOpportunities.push({
+        keyword,
+        volume,
+        competition,
+        cpc,
+        opportunityScore,
+        difficulty: competition < 0.3 ? 'Very Easy' :
+                   competition < 0.5 ? 'Easy' :
+                   competition < 0.7 ? 'Medium' :
+                   competition < 0.9 ? 'Hard' : 'Very Hard',
+      });
     }
 
     // Rate limit
@@ -391,31 +399,37 @@ async function fetchAmazonProducts(keyword) {
 }
 
 /**
- * Generate article with Claude
+ * Generate article with Gemini
  */
 async function generateArticle(keyword, products) {
   const prompt = buildPrompt(keyword, products);
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': CONFIG.claudeApiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-opus-4-6',
-      max_tokens: 4000,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  });
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${CONFIG.geminiApiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          maxOutputTokens: 16384,
+          temperature: 0.7,
+        },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Gemini API error: ${response.status} - ${error}`);
+  }
 
   const data = await response.json();
-  return data.content[0].text;
+  return data.candidates[0].content.parts[0].text;
 }
 
 /**
- * Build Claude prompt
+ * Build article generation prompt
  */
 function buildPrompt(keyword, products) {
   const category = detectCategory(keyword.keyword);

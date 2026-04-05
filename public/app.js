@@ -34,7 +34,7 @@ async function loadStatus() {
 
     // Check configuration
     const missing = [];
-    if (!data.configured.claude) missing.push('Claude API key');
+    if (!data.configured.gemini) missing.push('Gemini API key');
     if (!data.configured.keywords) missing.push('Keywords Everywhere API key');
 
     if (missing.length > 0) {
@@ -44,7 +44,7 @@ async function loadStatus() {
     }
 
     // Enable/disable buttons
-    document.getElementById('btnGenerate').disabled = data.keywords.remaining === 0 || !data.configured.claude;
+    document.getElementById('btnGenerate').disabled = data.keywords.remaining === 0 || !data.configured.gemini;
 
     // Load keywords and articles
     if (data.keywords.total > 0) {
@@ -107,7 +107,7 @@ async function generateArticle() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> <span>Generating...</span>';
 
-  showStatus('loading', '✍️ Generating article with Claude API... This takes ~30-60 seconds.');
+  showStatus('loading', '✍️ Generating article with Gemini... This takes ~30-60 seconds.');
 
   try {
     const response = await fetch('/api/generate', { method: 'POST' });
