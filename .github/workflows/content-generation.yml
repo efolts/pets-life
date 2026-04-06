@@ -1,0 +1,45 @@
+name: Autonomous Content Generation
+
+on:
+  # Monday + Thursday at 2 AM UTC (2 articles/week)
+  schedule:
+    - cron: '0 2 * * 1,4'
+
+  # Allow manual triggers from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  generate-article:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate article
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          KEYWORDS_EVERYWHERE_API_KEY: ${{ secrets.KEYWORDS_EVERYWHERE_API }}
+          AMAZON_AFFILIATE_TAG: petslife-20
+        run: node scripts/autonomous-generate.js
+
+      - name: Commit and push new content
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/content/blog/*.md public/images/products/*.jpg keyword-research-results.json
+          if git diff --staged --quiet; then
+            echo "No new content to commit"
+          else
+            git commit -m "Auto-generate article: $(date +'%Y-%m-%d')"
+            git push
+          fi

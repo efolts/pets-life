@@ -1,242 +1,155 @@
 /**
- * Pets Life Content Generator - Web Interface Server
+ * Autonomous Content Generation Pipeline
  *
- * Simple web UI for generating affiliate content
- * Run: npm run ui
- * Open: http://localhost:3000
+ * Runs the full article generation pipeline without user interaction:
+ * 1. Check if keyword research is fresh (< 7 days); re-run if stale
+ * 2. Select the next highest-scoring unpublished keyword
+ * 3. Scrape real product data from Amazon + download images locally
+ * 4. Generate article via Gemini 2.5 Flash
+ * 5. Write .md file to src/content/blog/
+ *
+ * Exit codes:
+ *   0 - Success (article generated OR nothing to do)
+ *   1 - Error (API failure, missing config, etc.)
+ *
+ * Usage: node scripts/autonomous-generate.js
+ *        npm run auto
  */
 
-import express from 'express';
 import dotenv from 'dotenv';
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'fs';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { scrapeAmazonProducts } from './scripts/lib/amazon-scraper.js';
-
-dotenv.config();
+import { scrapeAmazonProducts } from './lib/amazon-scraper.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PROJECT_ROOT = path.resolve(__dirname, '..');
 
-const execAsync = promisify(exec);
-const app = express();
-const PORT = 3000;
+// Load .env from project root (for local runs; GitHub Actions uses env secrets)
+dotenv.config({ path: path.join(PROJECT_ROOT, '.env') });
 
-app.use(express.json());
-app.use(express.static('public'));
-
-// Configuration
 const CONFIG = {
   geminiApiKey: process.env.GEMINI_API_KEY,
   keywordsApiKey: process.env.KEYWORDS_EVERYWHERE_API_KEY,
   amazonTag: process.env.AMAZON_AFFILIATE_TAG || 'petslife-20',
-  amazonAccessKey: process.env.AMAZON_ACCESS_KEY,
-  amazonSecretKey: process.env.AMAZON_SECRET_KEY,
 };
 
+const KEYWORD_RESEARCH_FILE = path.join(PROJECT_ROOT, 'keyword-research-results.json');
+const BLOG_DIR = path.join(PROJECT_ROOT, 'src/content/blog');
+const IMAGE_DIR = path.join(PROJECT_ROOT, 'public/images/products');
+const IMAGE_URL_PREFIX = '/images/products';
+const KEYWORD_MAX_AGE_DAYS = 7;
+
 // ============================================================================
-// API ENDPOINTS
+// MAIN
 // ============================================================================
 
-/**
- * GET /api/status
- * Check configuration and system status
- */
-app.get('/api/status', async (req, res) => {
-  const keywordResults = existsSync('./keyword-research-results.json');
+async function main() {
+  console.log('=== Autonomous Content Generation ===\n');
+
+  // Validate config
+  if (!CONFIG.geminiApiKey) {
+    console.error('ERROR: GEMINI_API_KEY is not set');
+    process.exit(1);
+  }
+
+  // Step 1: Ensure keyword research is fresh
+  await ensureKeywordResearch();
+
+  // Step 2: Load keywords and find next unpublished one
+  const ideas = loadKeywordData();
+  if (ideas.length === 0) {
+    console.error('ERROR: No keyword ideas found in research results');
+    process.exit(1);
+  }
+
   const published = getPublishedKeywords();
+  const keyword = selectNextKeyword(ideas, published);
 
-  let keywordCount = 0;
-  if (keywordResults) {
-    const data = JSON.parse(readFileSync('./keyword-research-results.json', 'utf8'));
-    keywordCount = data.articleIdeas?.length || 0;
+  if (!keyword) {
+    console.log('Nothing to do: all keywords have been published.');
+    console.log(`Published: ${published.length}/${ideas.length}`);
+    process.exit(0);
   }
 
-  res.json({
-    configured: {
-      gemini: !!CONFIG.geminiApiKey,
-      keywords: !!CONFIG.keywordsApiKey,
-      amazon: !!CONFIG.amazonTag,
-      amazonApi: !!(CONFIG.amazonAccessKey && CONFIG.amazonSecretKey),
-    },
-    keywords: {
-      total: keywordCount,
-      published: published.length,
-      remaining: Math.max(0, keywordCount - published.length),
-    },
-    git: await checkGitStatus(),
-  });
-});
+  console.log(`Selected keyword: "${keyword.keyword}" (score: ${keyword.opportunityScore})`);
+  console.log(`Progress: ${published.length}/${ideas.length} published\n`);
 
-/**
- * POST /api/research
- * Run keyword research
- */
-app.post('/api/research', async (req, res) => {
-  try {
-    if (!CONFIG.keywordsApiKey) {
-      return res.status(400).json({ error: 'Keywords Everywhere API key not configured' });
-    }
+  // Step 3: Fetch real Amazon products
+  const products = await fetchProducts(keyword.keyword);
+  console.log(`Fetched ${products.length} products from Amazon\n`);
 
-    res.json({ status: 'started', message: 'Running keyword research...' });
+  // Step 4: Generate article
+  console.log('Generating article via Gemini...');
+  const content = await generateArticle(keyword, products);
+  console.log(`Generated ${content.split(/\s+/).length} words\n`);
 
-    // Run in background
-    runKeywordResearch().then(results => {
-      console.log('Keyword research completed:', results);
-    }).catch(err => {
-      console.error('Keyword research failed:', err);
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-/**
- * GET /api/keywords
- * Get keyword research results
- */
-app.get('/api/keywords', (req, res) => {
-  if (!existsSync('./keyword-research-results.json')) {
-    return res.json({ keywords: [], message: 'No research data. Run keyword research first.' });
-  }
-
-  const data = JSON.parse(readFileSync('./keyword-research-results.json', 'utf8'));
-  const published = getPublishedKeywords();
-
-  const keywords = (data.articleIdeas || []).map(idea => ({
-    ...idea,
-    published: published.includes(idea.keyword),
-  }));
-
-  res.json({ keywords, total: keywords.length });
-});
-
-/**
- * POST /api/generate
- * Generate article for next keyword
- */
-app.post('/api/generate', async (req, res) => {
-  try {
-    if (!CONFIG.geminiApiKey) {
-      return res.status(400).json({ error: 'Gemini API key not configured. Add GEMINI_API_KEY to .env' });
-    }
-
-    // Get next keyword
-    const ideas = loadKeywordData();
-    const published = getPublishedKeywords();
-    const keyword = selectNextKeyword(ideas, published);
-
-    if (!keyword) {
-      return res.status(404).json({ error: 'No unpublished keywords available' });
-    }
-
-    // Fetch Amazon products
-    const products = await fetchAmazonProducts(keyword);
-
-    // Generate article
-    const content = await generateArticle(keyword, products);
-
-    // Create file (but don't commit yet)
-    const { filePath, title, slug } = createArticleFile(keyword, content, products);
-
-    res.json({
-      success: true,
-      keyword: keyword.keyword,
-      title,
-      slug,
-      filePath,
-      content,
-      products,
-      wordCount: content.split(/\s+/).length,
-      preview: content.substring(0, 500),
-    });
-
-  } catch (error) {
-    console.error('Generation error:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-/**
- * POST /api/publish
- * Commit and push article to GitHub
- */
-app.post('/api/publish', async (req, res) => {
-  try {
-    const { filePath, title } = req.body;
-
-    if (!filePath || !title) {
-      return res.status(400).json({ error: 'Missing filePath or title' });
-    }
-
-    // Git operations
-    await execAsync(`git add "${filePath}"`);
-
-    const commitMessage = `Add article: ${title}`;
-    await execAsync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`);
-
-    await execAsync('git push');
-
-    res.json({
-      success: true,
-      message: 'Article published to GitHub',
-      deployment: 'Cloudflare Pages will auto-deploy in ~2 minutes',
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-/**
- * GET /api/articles
- * List published articles
- */
-app.get('/api/articles', (req, res) => {
-  const blogDir = './src/content/blog';
-  if (!existsSync(blogDir)) {
-    return res.json({ articles: [] });
-  }
-
-  const files = readdirSync(blogDir);
-  const articles = files
-    .filter(f => f.endsWith('.md') || f.endsWith('.mdx'))
-    .map(file => {
-      const content = readFileSync(`${blogDir}/${file}`, 'utf8');
-      const frontmatterMatch = content.match(/---\n([\s\S]+?)\n---/);
-
-      if (frontmatterMatch) {
-        const fm = frontmatterMatch[1];
-        const title = fm.match(/title:\s*"([^"]+)"/)?.[1] || file;
-        const date = fm.match(/publishDate:\s*(\S+)/)?.[1] || '';
-        const category = fm.match(/category:\s*(\S+)/)?.[1] || '';
-
-        return {
-          file,
-          slug: file.replace('.md', ''),
-          title,
-          date,
-          category,
-        };
-      }
-
-      return { file, slug: file.replace('.md', ''), title: file };
-    })
-    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-
-  res.json({ articles, total: articles.length });
-});
+  // Step 5: Write file
+  const { filePath, title, slug } = createArticleFile(keyword, content, products);
+  console.log(`Article written: ${filePath}`);
+  console.log(`Title: ${title}`);
+  console.log(`Slug: ${slug}`);
+  console.log('\nDone. GitHub Actions will handle git commit/push.');
+}
 
 // ============================================================================
-// HELPER FUNCTIONS
+// AMAZON PRODUCT SCRAPING
 // ============================================================================
 
-/**
- * Run keyword research
- */
+async function fetchProducts(keyword) {
+  try {
+    const products = await scrapeAmazonProducts(keyword, {
+      amazonTag: CONFIG.amazonTag,
+      imageDir: IMAGE_DIR,
+      imageUrlPrefix: IMAGE_URL_PREFIX,
+      maxProducts: 7,
+    });
+
+    if (products.length === 0) {
+      throw new Error('No products found');
+    }
+
+    return products;
+  } catch (err) {
+    console.error(`Amazon scrape failed: ${err.message}`);
+    console.log('Cannot generate article without real product data.');
+    process.exit(1);
+  }
+}
+
+// ============================================================================
+// KEYWORD RESEARCH
+// ============================================================================
+
+async function ensureKeywordResearch() {
+  if (existsSync(KEYWORD_RESEARCH_FILE)) {
+    const stat = statSync(KEYWORD_RESEARCH_FILE);
+    const ageDays = (Date.now() - stat.mtimeMs) / (1000 * 60 * 60 * 24);
+
+    if (ageDays < KEYWORD_MAX_AGE_DAYS) {
+      console.log(`Keyword research is fresh (${ageDays.toFixed(1)} days old)\n`);
+      return;
+    }
+    console.log(`Keyword research is stale (${ageDays.toFixed(1)} days old)`);
+  } else {
+    console.log('No keyword research file found');
+  }
+
+  if (!CONFIG.keywordsApiKey) {
+    if (existsSync(KEYWORD_RESEARCH_FILE)) {
+      console.log('KEYWORDS_EVERYWHERE_API_KEY not set; using existing (stale) research\n');
+      return;
+    }
+    console.error('ERROR: KEYWORDS_EVERYWHERE_API_KEY is not set and no research file exists');
+    process.exit(1);
+  }
+
+  console.log('Running keyword research...');
+  await runKeywordResearch();
+  console.log('Keyword research complete\n');
+}
+
 async function runKeywordResearch() {
   // Long-tail, niche keywords with high ranking potential
   const SEED_KEYWORDS = [
@@ -264,6 +177,7 @@ async function runKeywordResearch() {
     'best dog food for diabetic dogs',
     'best dog food for dogs with liver problems',
     'best dog food for dogs with pancreatitis',
+
     // Dogs — breed-specific accessories & health
     'best harness for french bulldog that pulls',
     'best harness for dachshund with back problems',
@@ -283,6 +197,7 @@ async function runKeywordResearch() {
     'best dog toothpaste for bad breath',
     'best dog shampoo for itchy skin and allergies',
     'best anti chew spray for puppies',
+
     // Cats — specific needs
     'best cat food for indoor cats that throw up',
     'best cat food for cats with urinary tract problems',
@@ -303,6 +218,7 @@ async function runKeywordResearch() {
     'best flea treatment for kittens under 12 weeks',
     'best cat brush for long hair cats that hate brushing',
     'best window perch for heavy cats',
+
     // Small Pets — niche specific
     'best silent hamster wheel for bedroom',
     'best cage for two guinea pigs together',
@@ -314,7 +230,8 @@ async function runKeywordResearch() {
     'best exercise ball for dwarf hamsters',
     'best pellets for baby rabbits under 6 months',
     'best hideout for shy guinea pigs',
-    // Fish & Aquarium
+
+    // Fish & Aquarium — niche
     'best filter for 10 gallon betta fish tank',
     'best heater for 5 gallon betta tank',
     'best substrate for planted freshwater aquarium',
@@ -322,14 +239,16 @@ async function runKeywordResearch() {
     'best food for goldfish in outdoor pond',
     'best aquarium test kit for beginners',
     'best algae eater for small tanks',
-    // Reptiles
+
+    // Reptiles — niche
     'best uvb bulb for bearded dragon 40 gallon tank',
     'best substrate for leopard gecko',
     'best heat lamp for ball python enclosure',
     'best terrarium for crested gecko',
     'best calcium supplement for bearded dragons',
     'best fogger for chameleon cage humidity',
-    // Birds
+
+    // Birds — niche
     'best cage for two budgies together',
     'best pellet food for cockatiel',
     'best toys for parrots that pluck feathers',
@@ -372,9 +291,13 @@ async function runKeywordResearch() {
       const cpc = parseFloat(metrics.cpc?.value || 0);
       const wordCount = keyword.split(/\s+/).length;
 
+      // Must have proven search volume
       if (volume < 30) continue;
+      // Must be long-tail (4+ words) — short keywords are too competitive
       if (wordCount < 4) continue;
 
+      // Score: volume * niche bonus (more words = easier to rank) * commercial intent
+      // GKP competition is PPC-only so we ignore it for SEO ranking potential
       const nicheMultiplier = wordCount >= 6 ? 2.0 : wordCount >= 5 ? 1.5 : 1.0;
       const cpcMultiplier = cpc > 0.5 ? 2.5 : cpc > 0.2 ? 1.5 : 1.0;
       const opportunityScore = Math.round(
@@ -396,10 +319,12 @@ async function runKeywordResearch() {
 
   const articleIdeas = allOpportunities.slice(0, 80).map(opp => {
     const keyword = opp.keyword;
+    // For long-tail keywords, capitalize naturally and let Gemini refine the title
     const title = keyword.includes('best')
       ? keyword.charAt(0).toUpperCase() + keyword.slice(1) + ' in 2026'
       : 'Best ' + keyword.charAt(0).toUpperCase() + keyword.slice(1) + ' in 2026';
     const type = keyword.includes('best') ? 'roundup' : 'buying-guide';
+
     return { title, keyword, type, ...opp };
   });
 
@@ -411,38 +336,15 @@ async function runKeywordResearch() {
     articleIdeas,
   };
 
-  writeFileSync('./keyword-research-results.json', JSON.stringify(output, null, 2));
+  writeFileSync(KEYWORD_RESEARCH_FILE, JSON.stringify(output, null, 2));
+  console.log(`  Analyzed ${SEED_KEYWORDS.length} seeds → ${allOpportunities.length} low-competition opportunities`);
   return output;
 }
 
-/**
- * Fetch Amazon products via scraping + local image download
- */
-async function fetchAmazonProducts(keyword) {
-  try {
-    console.log(`Scraping Amazon for "${keyword.keyword}"...`);
-    const products = await scrapeAmazonProducts(keyword.keyword, {
-      amazonTag: CONFIG.amazonTag,
-      imageDir: './public/images/products',
-      imageUrlPrefix: '/images/products',
-      maxProducts: 7,
-    });
+// ============================================================================
+// ARTICLE GENERATION
+// ============================================================================
 
-    if (products.length > 0) {
-      console.log(`Found ${products.length} real products`);
-      return products;
-    }
-  } catch (err) {
-    console.error(`Amazon scrape error: ${err.message}`);
-  }
-
-  console.log('Scraping failed — cannot generate article without real products');
-  throw new Error('No products found. Try again later.');
-}
-
-/**
- * Generate article with Gemini
- */
 async function generateArticle(keyword, products) {
   const prompt = buildPrompt(keyword, products);
 
@@ -470,9 +372,6 @@ async function generateArticle(keyword, products) {
   return data.candidates[0].content.parts[0].text;
 }
 
-/**
- * Build article generation prompt
- */
 function buildPrompt(keyword, products) {
   const category = detectCategory(keyword.keyword);
 
@@ -485,7 +384,7 @@ function buildPrompt(keyword, products) {
     if (p.isPrime) entry += `   - Prime eligible\n`;
     if (p.localImage) entry += `   - Image: ${p.localImage}\n`;
     entry += `   - Affiliate URL: ${p.affiliateUrl}\n`;
-    if (p.features?.length > 0) {
+    if (p.features.length > 0) {
       entry += `   - Key features: ${p.features.slice(0, 5).join('; ')}\n`;
     }
     return entry;
@@ -522,9 +421,10 @@ REQUIREMENTS:
 OUTPUT: Return ONLY the article content in markdown/HTML format. Start with an H1 title. Do NOT include frontmatter (---).`;
 }
 
-/**
- * Create article file
- */
+// ============================================================================
+// FILE CREATION
+// ============================================================================
+
 function createArticleFile(keyword, content, products) {
   const title = content.match(/^#\s+(.+)$/m)?.[1] || keyword.title;
   const slug = keyword.keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -543,6 +443,7 @@ function createArticleFile(keyword, content, products) {
     }
   );
 
+  // Build product metadata for frontmatter
   const productMeta = products.map(p => ({
     asin: p.asin,
     title: p.title,
@@ -569,32 +470,36 @@ featured: true
 `;
 
   const fullContent = frontmatter + contentWithoutH1;
-  const filePath = `./src/content/blog/${slug}.md`;
 
+  if (!existsSync(BLOG_DIR)) {
+    mkdirSync(BLOG_DIR, { recursive: true });
+  }
+
+  const filePath = path.join(BLOG_DIR, `${slug}.md`);
   writeFileSync(filePath, fullContent, 'utf8');
 
   return { filePath, title, slug };
 }
 
-/**
- * Helper functions
- */
+// ============================================================================
+// HELPERS
+// ============================================================================
+
 function loadKeywordData() {
-  if (!existsSync('./keyword-research-results.json')) return [];
-  const data = JSON.parse(readFileSync('./keyword-research-results.json', 'utf8'));
+  if (!existsSync(KEYWORD_RESEARCH_FILE)) return [];
+  const data = JSON.parse(readFileSync(KEYWORD_RESEARCH_FILE, 'utf8'));
   return data.articleIdeas || [];
 }
 
 function getPublishedKeywords() {
-  const blogDir = './src/content/blog';
-  if (!existsSync(blogDir)) return [];
+  if (!existsSync(BLOG_DIR)) return [];
 
-  const files = readdirSync(blogDir);
+  const files = readdirSync(BLOG_DIR);
   const published = new Set();
 
   files.forEach(file => {
-    if (file.endsWith('.md')) {
-      const content = readFileSync(`${blogDir}/${file}`, 'utf8');
+    if (file.endsWith('.md') || file.endsWith('.mdx')) {
+      const content = readFileSync(path.join(BLOG_DIR, file), 'utf8');
       const match = content.match(/keywords:\s*\["([^"]+)"/);
       if (match) published.add(match[1]);
     }
@@ -641,31 +546,11 @@ function detectCategory(keyword) {
   return 'Pets';
 }
 
-async function checkGitStatus() {
-  try {
-    const { stdout } = await execAsync('git status --porcelain');
-    return {
-      clean: stdout.trim() === '',
-      hasChanges: stdout.trim() !== '',
-    };
-  } catch {
-    return { clean: false, hasChanges: false, error: 'Not a git repository' };
-  }
-}
-
 // ============================================================================
-// START SERVER
+// RUN
 // ============================================================================
 
-app.listen(PORT, () => {
-  console.log(`
-╔═══════════════════════════════════════════════════╗
-║  🐹 Pets Life Content Generator                   ║
-║                                                    ║
-║  Web UI running at:                               ║
-║  → http://localhost:${PORT}                          ║
-║                                                    ║
-║  Press Ctrl+C to stop                             ║
-╚═══════════════════════════════════════════════════╝
-  `);
+main().catch(err => {
+  console.error('FATAL:', err.message);
+  process.exit(1);
 });
