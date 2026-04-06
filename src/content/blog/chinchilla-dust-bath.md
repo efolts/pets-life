@@ -5,6 +5,35 @@ publishDate: 2026-04-05
 category: Chinchillas
 keywords: ["chinchilla dust bath"]
 products: ["B0OD9JZNNI", "B0W4D1DWWA", "B0SEQRKI6U", "B08X7JK27P", "B0T1RYG6RN", "B0FRB5R3MG", "B0V21874N7"]
+amazonProducts:
+  - asin: "B0OD9JZNNI"
+    title: "Chinchilla Dust Bath Product 1"
+    image: "/images/products/B0OD9JZNNI.jpg"
+    url: "https://www.amazon.com/dp/B0OD9JZNNI?tag=petslife-20"
+  - asin: "B0W4D1DWWA"
+    title: "Chinchilla Dust Bath Product 2"
+    image: "/images/products/B0W4D1DWWA.jpg"
+    url: "https://www.amazon.com/dp/B0W4D1DWWA?tag=petslife-20"
+  - asin: "B0SEQRKI6U"
+    title: "Chinchilla Dust Bath Product 3"
+    image: "/images/products/B0SEQRKI6U.jpg"
+    url: "https://www.amazon.com/dp/B0SEQRKI6U?tag=petslife-20"
+  - asin: "B08X7JK27P"
+    title: "Chinchilla Dust Bath Product 4"
+    image: "/images/products/B08X7JK27P.jpg"
+    url: "https://www.amazon.com/dp/B08X7JK27P?tag=petslife-20"
+  - asin: "B0T1RYG6RN"
+    title: "Chinchilla Dust Bath Product 5"
+    image: "/images/products/B0T1RYG6RN.jpg"
+    url: "https://www.amazon.com/dp/B0T1RYG6RN?tag=petslife-20"
+  - asin: "B0FRB5R3MG"
+    title: "Chinchilla Dust Bath Product 6"
+    image: "/images/products/B0FRB5R3MG.jpg"
+    url: "https://www.amazon.com/dp/B0FRB5R3MG?tag=petslife-20"
+  - asin: "B0V21874N7"
+    title: "Chinchilla Dust Bath Product 7"
+    image: "/images/products/B0V21874N7.jpg"
+    url: "https://www.amazon.com/dp/B0V21874N7?tag=petslife-20"
 author: "Pets Life Team"
 featured: true
 ---
