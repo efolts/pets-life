@@ -59,3 +59,6 @@
 /best-wet-dog-food-for-chihuahua/ / 301
 /fish-tanks-faq/ / 301
 /guinea-pigs-faq/ / 301
+
+# Catch-all: serve 404 page for any unmatched URLs
+/* /404 404

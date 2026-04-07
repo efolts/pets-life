@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found - Pets Life"
+  description="The page you're looking for doesn't exist."
+>
+  <div class="error-page">
+    <div class="container">
+      <div class="error-content">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Page Not Found</h2>
+        <p class="error-message">
+          Sorry, we couldn't find the page you're looking for.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="button-primary">Go Home</a>
+          <a href="/trending-pet-products-this-week/" class="button-secondary">See Trending Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+  }
+
+  .error-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .error-code {
+    font-family: 'Lato', sans-serif;
+    font-size: 8rem;
+    font-weight: 900;
+    color: #00a498;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .error-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 20px 0 16px;
+  }
+
+  .error-message {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .button-primary,
+  .button-secondary {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 28px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .button-primary {
+    background: #00a498;
+    color: #ffffff;
+  }
+
+  .button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 164, 152, 0.3);
+  }
+
+  .button-secondary {
+    background: #f8f9fa;
+    color: #00a498;
+    border: 2px solid #00a498;
+  }
+
+  .button-secondary:hover {
+    background: #e6f7f5;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 6rem;
+    }
+
+    .error-title {
+      font-size: 1.5rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .button-primary,
+    .button-secondary {
+      width: 100%;
+    }
+  }
+</style>
