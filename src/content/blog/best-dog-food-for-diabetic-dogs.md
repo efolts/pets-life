@@ -36,6 +36,7 @@ amazonProducts:
     url: "https://www.amazon.com/dp/B09K8SDVMN?tag=petslife-20"
 author: "Pets Life Team"
 featured: true
+coverImage: "/images/covers/diabetic-dogs.jpg"
 ---
 
 <h1 id="best-dog-food-for-diabetic-dogs-a-comprehensive-guide-to-nourishing-your-canine-companion">Best Dog Food for Diabetic Dogs: A Comprehensive Guide to Nourishing Your Canine Companion</h1>

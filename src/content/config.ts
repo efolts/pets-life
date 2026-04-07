@@ -20,6 +20,14 @@ const blog = defineCollection({
         })
       ])
     ).default([]),
+    amazonProducts: z.array(
+      z.object({
+        asin: z.string(),
+        title: z.string(),
+        image: z.string(),
+        url: z.string(),
+      })
+    ).default([]),
     author: z.string().default('Pets Life Team'),
     featured: z.boolean().default(false),
     coverImage: z.string().optional(),

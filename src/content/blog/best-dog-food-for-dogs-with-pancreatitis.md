@@ -36,6 +36,7 @@ amazonProducts:
     url: "https://www.amazon.com/dp/B00TH3MMDE?tag=petslife-20"
 author: "Pets Life Team"
 featured: true
+coverImage: "/images/covers/pancreatitis-dogs.jpg"
 ---
 
 Watching your beloved dog suffer from pancreatitis can be heart-wrenching. This inflammatory condition of the pancreas can cause severe abdominal pain, vomiting, diarrhea, and a general feeling of unwellness. While it's a serious health concern, managing pancreatitis often begins right in their food bowl. Choosing the right diet is arguably the most critical step in both treating acute flare-ups and preventing future episodes.
