@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
-  title: 'Pets Life',
-  description: 'Independent pet product discovery. We highlight what\'s working for real pet owners.',
+  title: 'Pets Life - Independent Pet Product Reviews & Recommendations',
+  description: 'Discover the best pet products for dogs, cats, and small pets. Independent reviews, trending products, and expert recommendations from real pet owners. Find top-rated food, toys, accessories, and more.',
   url: 'https://www.pets-life.com',
   author: 'Pets Life Team',
 

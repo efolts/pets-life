@@ -38,19 +38,70 @@ const featuredProducts = [
 ];
 
 const categories = SITE_CONFIG.categories.slice(0, 12);
+
+// Homepage-specific schema markup
+const homepageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_CONFIG.url}/#website`,
+      "url": SITE_CONFIG.url,
+      "name": SITE_CONFIG.title,
+      "description": SITE_CONFIG.description,
+      "publisher": {
+        "@id": `${SITE_CONFIG.url}/#organization`
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${SITE_CONFIG.url}/?s={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_CONFIG.url}/#organization`,
+      "name": "Pets Life",
+      "url": SITE_CONFIG.url,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE_CONFIG.url}/logo.png`
+      },
+      "description": "Independent pet product discovery and reviews",
+      "sameAs": []
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_CONFIG.url}/#webpage`,
+      "url": SITE_CONFIG.url,
+      "name": SITE_CONFIG.title,
+      "description": SITE_CONFIG.description,
+      "isPartOf": {
+        "@id": `${SITE_CONFIG.url}/#website`
+      },
+      "about": {
+        "@id": `${SITE_CONFIG.url}/#organization`
+      }
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title={SITE_CONFIG.title}
-  description={SITE_CONFIG.description}
+  title="Pets Life - Best Pet Products, Reviews & Expert Recommendations"
+  description="Discover top-rated pet products for dogs, cats, and small pets. Independent reviews, trending products, and expert recommendations. Find the best food, toys, accessories, and health products for your pets."
+  jsonLd={homepageSchema}
 >
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-container">
-      <h1 class="hero-title">Pets Life</h1>
-      <p class="hero-subtitle">Independent pet product discovery. We highlight what's working for real pet owners.</p>
-      <a href="/trending-pet-products-this-week/" class="hero-cta">See What's Trending</a>
+      <h1 class="hero-title">Find the Best Pet Products for Dogs, Cats & More</h1>
+      <p class="hero-subtitle">Independent reviews and recommendations from real pet owners. Discover trending products, expert guides, and top-rated supplies for your furry friends.</p>
+      <a href="/trending-pet-products-this-week/" class="hero-cta">See What's Trending This Week</a>
     </div>
   </section>
 
