@@ -1,0 +1,61 @@
+name: Update Trending Products
+
+on:
+  # Run every Monday at 6 AM UTC (2 AM EST)
+  schedule:
+    - cron: '0 6 * * 1'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-trending:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update trending products
+        run: npm run update-trending
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code data/ public/images/products/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.json public/images/products/*.jpg
+          git commit -m "Update trending products (automated weekly update)
+
+          - Updated trending-dogs.json
+          - Updated trending-cats.json
+          - Updated trending-all.json
+          - Downloaded new product images
+
+          Co-Authored-By: GitHub Actions <github-actions[bot]@users.noreply.github.com>"
+          git push
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.git-check.outputs.changed }}" == "true" ]; then
+            echo "✓ Trending products updated and pushed to main"
+            echo "✓ Cloudflare Pages will auto-deploy the changes"
+          else
+            echo "ℹ No changes detected - trending products are up to date"
+          fi

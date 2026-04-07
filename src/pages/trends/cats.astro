@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { SITE_CONFIG } from '../../config';
+import trendingData from '../../../data/trending-cats.json';
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
@@ -10,32 +10,12 @@ const breadcrumbs = [
   { label: 'Cats' }
 ];
 
-const catProducts = [
-  {
-    title: 'Catit Flower Drinking Fountain',
-    description: 'Three water flow settings encourage cats to drink more water. Triple-action filter keeps water clean and fresh. Compact design fits any space. Easy to disassemble and clean.',
-    imageUrl: '/images/products/B0146QXOB0.jpg',
-    affiliateUrl: `https://www.amazon.com/dp/B0146QXOB0?tag=${SITE_CONFIG.amazonTag}`
-  },
-  {
-    title: 'PetFusion Ultimate Cat Scratcher Lounge',
-    description: 'Award-winning design doubles as a scratcher and lounge. Recycled cardboard construction is eco-friendly. Reversible for double the life. Curves naturally attract cats to scratch.',
-    imageUrl: '/images/products/B004X6UQ46.jpg',
-    affiliateUrl: `https://www.amazon.com/dp/B004X6UQ46?tag=${SITE_CONFIG.amazonTag}`
-  },
-  {
-    title: 'IRIS USA Top Entry Cat Litter Box',
-    description: 'Top-entry design keeps litter inside the box, not on your floors. Built-in grooved lid catches litter from paws. Large interior space for comfortable use. Snap-on lid for easy cleaning.',
-    imageUrl: '/images/products/B00KXM2Y24.jpg',
-    affiliateUrl: `https://www.amazon.com/dp/B00KXM2Y24?tag=${SITE_CONFIG.amazonTag}`
-  },
-  {
-    title: 'Yeowww! Catnip Banana Toy',
-    description: 'Filled with 100% organically grown catnip. Durable cotton twill fabric stands up to bunny kicks. No fillers, no plastic, no chemicals. Hand-made in the USA. Cat-tested and approved.',
-    imageUrl: '/images/products/B000AUJFHE.jpg',
-    affiliateUrl: `https://www.amazon.com/dp/B000AUJFHE?tag=${SITE_CONFIG.amazonTag}`
-  }
-];
+const catProducts = trendingData.products;
+const lastUpdated = new Date(trendingData.lastUpdated).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
 <BaseLayout
@@ -49,6 +29,7 @@ const catProducts = [
       <header class="page-header">
         <h1>Trending Cat Products</h1>
         <p class="page-intro">The cat products real owners are loving right now. From fountains and scratchers to litter solutions and toys, these are the picks gaining serious momentum.</p>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
       </header>
 
       <div class="product-grid">
@@ -96,6 +77,13 @@ const catProducts = [
     color: #666;
     line-height: 1.7;
     max-width: 700px;
+  }
+
+  .last-updated {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 8px;
+    font-style: italic;
   }
 
   .related-trends {
