@@ -138,7 +138,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Adult dogs needing a reliable, balanced diet where portion control and consistent nutrition are priorities. It could be considered as part of a diabetic management plan under veterinary supervision, especially for dogs who need stable energy release.</p>
-<AffiliateButton asin="B00BD741WM" productName="IAMS Proactive Health Adult Minichunks Premium Dry Dog Food, Adult Dog Food Dry Recipe, 30 lb. Bag" />
+
+<div class="product-box">
+<img src="/images/products/B00BD741WM.jpg" alt="IAMS Proactive Health Adult Minichunks" loading="lazy" />
+<div class="product-info">
+<h4>IAMS Proactive Health Adult Minichunks</h4>
+<p>Balanced diet with farm-raised chicken, essential nutrients for metabolism, and fiber blend for healthy digestion. Minichunks size helps with portion control. 30 lb bag.</p>
+<a href="https://www.amazon.com/dp/B00BD741WM?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="2-purina-one-chicken-and-rice-formula-dry-dog-food---31-1-lb-bag">2. Purina ONE Chicken and Rice Formula Dry Dog Food - 31.1 lb. Bag</h3>
 <p>
@@ -172,7 +180,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Adult dogs who thrive on a chicken and rice-based diet and require consistent nutrition. It could be an option for managing diabetes if carbohydrate levels are appropriate for your dog's specific needs, under veterinary guidance, making it a potential candidate for the best dog food for diabetic dogs if adjusted properly.</p>
-<AffiliateButton asin="B008MKI7KU" productName="Purina ONE Chicken and Rice Formula Dry Dog Food - 31.1 lb. Bag" />
+
+<div class="product-box">
+<img src="/images/products/B008MKI7KU.jpg" alt="Purina ONE Chicken and Rice Formula" loading="lazy" />
+<div class="product-info">
+<h4>Purina ONE Chicken and Rice Formula</h4>
+<p>Real chicken as #1 ingredient with four antioxidant sources for immunity. Natural glucosamine for joints and omega-6 for skin and coat. Digestible ingredients. 31.1 lb bag.</p>
+<a href="https://www.amazon.com/dp/B008MKI7KU?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="3-purina-one-true-instinct-with-a-blend-of-real-turkey-and-venison-dry-dog-food---7-4-lb-bag">3. Purina ONE True Instinct With A Blend Of Real Turkey and Venison Dry Dog Food - 7.4 lb. Bag</h3>
 <p>
@@ -205,7 +221,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Dogs who thrive on a higher protein, grain-free diet. With veterinary approval, its protein content might be advantageous for diabetic dogs needing to maintain muscle mass and feel fuller, potentially making it one of the better dog food for diabetic dogs if its carb profile fits.</p>
-<AffiliateButton asin="B00DE7WHLQ" productName="Purina ONE True Instinct With A Blend Of Real Turkey and Venison Dry Dog Food - 7.4 lb. Bag" />
+
+<div class="product-box">
+<img src="/images/products/B00DE7WHLQ.jpg" alt="Purina ONE True Instinct Turkey and Venison" loading="lazy" />
+<div class="product-info">
+<h4>Purina ONE True Instinct Turkey and Venison</h4>
+<p>High-protein formula with real turkey and venison blend. Grain-free with natural ingredients and no artificial flavors. Great for active dogs needing muscle support. 7.4 lb bag.</p>
+<a href="https://www.amazon.com/dp/B00DE7WHLQ?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="4-hills-science-diet-adult-7-small-bites-dry-dog-food-chicken-meal-barley-rice-5-lb-bag">4. Hill's Science Diet Adult 7+ Small Bites Dry Dog Food, Chicken Meal, Barley, & Rice, 5 lb. Bag</h3>
 <p>
@@ -238,7 +262,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Senior small breed dogs (7+ years) who need age-appropriate nutrition and small kibble. If your diabetic dog falls into this category, this could be a strong contender, provided its nutritional breakdown aligns with their diabetic management plan as determined by your vet, making it a potential option for the best dog food for diabetic dogs in this specific demographic.</p>
-<AffiliateButton asin="B00063425K" productName="Hill's Science Diet Adult 7+ Small Bites Dry Dog Food, Chicken Meal, Barley, & Rice, 5 lb. Bag" />
+
+<div class="product-box">
+<img src="/images/products/B00063425K.jpg" alt="Hill's Science Diet Adult 7+ Small Bites" loading="lazy" />
+<div class="product-info">
+<h4>Hill's Science Diet Adult 7+ Small Bites</h4>
+<p>Senior small breed formula supporting healthy brain function, energy, and vitality. Small kibble size for easy chewing. Omega-6 and vitamin E for skin and coat. 5 lb bag.</p>
+<a href="https://www.amazon.com/dp/B00063425K?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="5-blue-buffalo-life-protection-formula-senior-dry-dog-food-supports-joint-health-and-mobility-made-with-natural-ingredients-chicken-brown-rice-recipe-5-lb-bag">5. Blue Buffalo Life Protection Formula Senior Dry Dog Food, Supports Joint Health and Mobility, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb. Bag</h3>
 <p>
@@ -271,7 +303,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Senior dogs, especially those needing extra support for joint health and mobility. For older diabetic dogs, managing mobility is important, and this food could offer complementary benefits under veterinary guidance, making it a consideration when looking for the best dog food for diabetic dogs that are also seniors.</p>
-<AffiliateButton asin="B09K8RGBVR" productName="Blue Buffalo Life Protection Formula Senior Dry Dog Food, Supports Joint Health and Mobility, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb. Bag" />
+
+<div class="product-box">
+<img src="/images/products/B09K8RGBVR.jpg" alt="Blue Buffalo Life Protection Formula Senior" loading="lazy" />
+<div class="product-info">
+<h4>Blue Buffalo Life Protection Formula Senior</h4>
+<p>Senior formula with real chicken, glucosamine, and chondroitin for joint health. Contains antioxidant-rich LifeSource Bits. Natural ingredients with no corn, wheat, or soy. 5 lb bag.</p>
+<a href="https://www.amazon.com/dp/B09K8RGBVR?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="6-blue-buffalo-life-protection-formula-healthy-weight-adult-dry-dog-food-supports-an-ideal-weight-made-with-natural-ingredients-chicken-brown-rice-recipe-5-lb-bag">6. Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food, Supports an Ideal Weight, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb Bag</h3>
 <p>
@@ -305,7 +345,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Adult dogs who need to lose weight or maintain an ideal weight. This is particularly relevant for diabetic dogs, as proper weight management is a cornerstone of diabetes care. Under veterinary guidance, this could be a highly suitable option for the best dog food for diabetic dogs.</p>
-<AffiliateButton asin="B09K8XV4ZS" productName="Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food, Supports an Ideal Weight, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb Bag" />
+
+<div class="product-box">
+<img src="/images/products/B09K8XV4ZS.jpg" alt="Blue Buffalo Life Protection Formula Healthy Weight" loading="lazy" />
+<div class="product-info">
+<h4>Blue Buffalo Life Protection Formula Healthy Weight</h4>
+<p>Reduced calorie and fat formula with L-Carnitine for healthy metabolism. Real chicken, natural ingredients, and LifeSource Bits. Perfect for weight management in diabetic dogs. 5 lb bag.</p>
+<a href="https://www.amazon.com/dp/B09K8XV4ZS?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h3 id="7-blue-buffalo-life-protection-formula-small-breed-senior-dry-dog-food-supports-joint-health-and-immunity-made-with-natural-ingredients-chicken-brown-rice-recipe-5-lb-bag">7. Blue Buffalo Life Protection Formula Small Breed Senior Dry Dog Food, Supports Joint Health and Immunity, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb Bag</h3>
 <p>
@@ -340,7 +388,15 @@ coverImage: "/images/covers/diabetic-dogs.jpg"
 </div>
 <h4>Who It's Best For:</h4>
 <p>Small breed senior dogs (7+ years) who need specialized nutrition, joint support, and smaller kibble. If your diabetic dog is a small senior, this formula could be a suitable option under veterinary guidance, representing a potential best dog food for diabetic dogs in this specific demographic.</p>
-<AffiliateButton asin="B09K8SDVMN" productName="Blue Buffalo Life Protection Formula Small Breed Senior Dry Dog Food, Supports Joint Health and Immunity, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb Bag" />
+
+<div class="product-box">
+<img src="/images/products/B09K8SDVMN.jpg" alt="Blue Buffalo Life Protection Formula Small Breed Senior" loading="lazy" />
+<div class="product-info">
+<h4>Blue Buffalo Life Protection Formula Small Breed Senior</h4>
+<p>Small breed senior formula with glucosamine and chondroitin for joints. Antioxidant-rich LifeSource Bits for immunity. Small kibble size. Natural ingredients. 5 lb bag.</p>
+<a href="https://www.amazon.com/dp/B09K8SDVMN?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 <h2 id="buying-guide-choosing-the-best-dog-food-for-diabetic-dogs">Buying Guide: Choosing the Best Dog Food for Diabetic Dogs</h2>
 

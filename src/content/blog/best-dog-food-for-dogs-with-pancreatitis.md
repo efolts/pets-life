@@ -69,8 +69,6 @@ Here, we'll break down each product, offering insights into its features, benefi
 
 ### Hill's Science Diet Adult Sensitive Stomach & Skin Dry Dog Food, Chicken, 4 lb. Bag
 
-<img src="/images/products/B015EE4D0Y.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Dry Dog Food, Chicken, 4 lb. Bag" loading="lazy" />
-
 Hill's Science Diet is a brand often recommended by veterinarians for its scientifically formulated nutrition. This particular recipe is designed for adult dogs with sensitive digestive systems and skin concerns. While not explicitly a low-fat food, "sensitive stomach" formulas often prioritize digestibility, which can be beneficial for dogs recovering from or managing pancreatitis. It features easily digestible ingredients and prebiotics to support a healthy gut microbiome.
 
 **Key Features:**
@@ -101,13 +99,18 @@ Hill's Science Diet is a brand often recommended by veterinarians for its scient
 
 **Who it's best for:** This food is a good option for adult dogs experiencing general digestive upset or skin sensitivities. For dogs with pancreatitis, its digestibility is a plus, but *it's crucial to confirm the fat content with your veterinarian* to ensure it aligns with their specific dietary requirements for managing the condition.
 
-<AffiliateButton asin="B015EE4D0Y" productName="Hill's Science Diet Adult Sensitive Stomach & Skin Dry Dog Food, Chicken, 4 lb. Bag" />
+<div class="product-box">
+<img src="/images/products/B015EE4D0Y.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Dry Dog Food" loading="lazy" />
+<div class="product-info">
+<h4>Hill's Science Diet Adult Sensitive Stomach & Skin Dry Dog Food</h4>
+<p>Scientifically formulated nutrition with easily digestible ingredients and prebiotic fiber for sensitive stomachs. Supports healthy skin and coat with vitamin E and omega-6 fatty acids.</p>
+<a href="https://www.amazon.com/dp/B015EE4D0Y?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Hill's Science Diet Adult Sensitive Stomach & Skin Small & Mini Dry Dog Food, Chicken, 4 lb. Bag (Updated Formula)
-
-<img src="/images/products/B01BKECF2K.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Small & Mini Dry Dog Food, Chicken, 4 lb. Bag (Updated Formula)" loading="lazy" />
 
 This updated formula from Hill's Science Diet offers the same sensitive stomach and skin benefits as its larger counterpart, but specifically tailored for the unique needs of small and mini breeds. The kibble size is smaller, making it easier for smaller mouths to chew and digest. The focus remains on highly digestible ingredients and prebiotic fiber to support gut health, which is beneficial for managing sensitive systems, including those impacted by pancreatitis.
 
@@ -139,13 +142,18 @@ This updated formula from Hill's Science Diet offers the same sensitive stomach 
 
 **Who it's best for:** Ideal for small or mini adult dogs with sensitive stomachs, digestive issues, or skin problems. Like the standard Sensitive Stomach & Skin formula, its suitability as the **best dog food for dogs with pancreatitis** depends on its fat content and your vet's specific dietary recommendations.
 
-<AffiliateButton asin="B01BKECF2K" productName="Hill's Science Diet Adult Sensitive Stomach & Skin Small & Mini Dry Dog Food, Chicken, 4 lb. Bag (Updated Formula)" />
+<div class="product-box">
+<img src="/images/products/B01BKECF2K.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Small & Mini Dry Dog Food" loading="lazy" />
+<div class="product-info">
+<h4>Hill's Science Diet Adult Sensitive Stomach & Skin Small & Mini</h4>
+<p>Updated formula tailored for small and mini breeds with sensitive stomachs. Small kibble size for easy chewing and digestion. Contains prebiotic fiber for gut health.</p>
+<a href="https://www.amazon.com/dp/B01BKECF2K?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Diamond Naturals Skin & Coat Real Salmon and Potato Recipe Dry Dog Food with High Quality Protein, Omega Fatty Acids, Probiotics and Essential Nutrients to Promote Healthy Skin and Coat 30lb
-
-<img src="/images/products/B079FHJMMG.jpg" alt="Diamond Naturals Skin & Coat Real Salmon and Potato Recipe Dry Dog Food with High Quality Protein, Omega Fatty Acids, Probiotics and Essential Nutrients to Promote Healthy Skin and Coat 30lb" loading="lazy" />
 
 Diamond Naturals is known for providing quality ingredients at a more accessible price point. This "Skin & Coat" formula features real salmon as the primary protein source, along with potatoes, to provide a grain-free option. It's packed with omega fatty acids, which are fantastic for skin and coat health, and also includes probiotics for digestive support. However, for pancreatitis, the fat content derived from salmon and added oils for "skin & coat" benefits needs careful consideration.
 
@@ -177,13 +185,18 @@ Diamond Naturals is known for providing quality ingredients at a more accessible
 
 **Who it's best for:** This food is best for dogs without pancreatitis who suffer from dry skin, dull coats, or allergies to common proteins, and who can tolerate a moderate to higher fat diet. It is generally *not* recommended as a primary choice for dogs with active pancreatitis due to the potential for higher fat content from salmon and omega oils, unless specifically approved by a veterinarian after reviewing the full guaranteed analysis.
 
-<AffiliateButton asin="B079FHJMMG" productName="Diamond Naturals Skin & Coat Real Salmon and Potato Recipe Dry Dog Food with High Quality Protein, Omega Fatty Acids, Probiotics and Essential Nutrients to Promote Healthy Skin and Coat 30lb" />
+<div class="product-box">
+<img src="/images/products/B079FHJMMG.jpg" alt="Diamond Naturals Skin & Coat Real Salmon and Potato Recipe" loading="lazy" />
+<div class="product-info">
+<h4>Diamond Naturals Skin & Coat Real Salmon and Potato Recipe</h4>
+<p>Grain-free formula with real salmon and omega fatty acids for superior skin and coat health. Contains K9 Strain Probiotics for digestive support. 30 lb bag offers great value.</p>
+<a href="https://www.amazon.com/dp/B079FHJMMG?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Blue Buffalo Life Protection Formula Senior Dry Dog Food, Supports Joint Health and Mobility, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb. Bag
-
-<img src="/images/products/B09K8RGBVR.jpg" alt="Blue Buffalo Life Protection Formula Senior Dry Dog Food, Supports Joint Health and Mobility, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb. Bag" loading="lazy" />
 
 Blue Buffalo's Life Protection Formula is known for its natural ingredients and inclusion of antioxidant-rich LifeSource Bits. This senior-specific formula is designed to support the unique needs of older dogs, focusing on joint health and mobility. Senior diets often feature slightly reduced calorie and fat content compared to adult formulas to help manage weight, which can be a beneficial side effect for dogs needing a lower-fat diet for pancreatitis. It includes glucosamine and chondroitin for joint support.
 
@@ -215,13 +228,18 @@ Blue Buffalo's Life Protection Formula is known for its natural ingredients and 
 
 **Who it's best for:** This is an excellent choice for senior dogs who need support for their joints and overall aging health. For senior dogs with pancreatitis, it might be a suitable option due to potentially lower fat content, but a vet's assessment of its guaranteed analysis is essential to ensure it meets the strict low-fat requirements for managing the condition.
 
-<AffiliateButton asin="B09K8RGBVR" productName="Blue Buffalo Life Protection Formula Senior Dry Dog Food, Supports Joint Health and Mobility, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 5-lb. Bag" />
+<div class="product-box">
+<img src="/images/products/B09K8RGBVR.jpg" alt="Blue Buffalo Life Protection Formula Senior Dry Dog Food" loading="lazy" />
+<div class="product-info">
+<h4>Blue Buffalo Life Protection Formula Senior Dry Dog Food</h4>
+<p>Senior formula with real chicken, glucosamine, and chondroitin for joint health. Contains antioxidant-rich LifeSource Bits and natural ingredients for aging dogs.</p>
+<a href="https://www.amazon.com/dp/B09K8RGBVR?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food, Supports an Ideal Weight, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 30-lb Bag
-
-<img src="/images/products/B0009YUI86.jpg" alt="Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food, Supports an Ideal Weight, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 30-lb Bag" loading="lazy" />
 
 This "Healthy Weight" formula from Blue Buffalo is one of the strongest contenders when searching for the **best dog food for dogs with pancreatitis**. Formulated to help adult dogs achieve and maintain an ideal weight, these diets are inherently lower in calories and, critically, lower in fat compared to standard adult dog foods. This makes it a prime candidate for dogs requiring a restricted-fat diet to manage pancreatitis. It still provides high-quality protein and complex carbohydrates for sustained energy, along with Blue Buffalo's signature LifeSource Bits.
 
@@ -253,13 +271,18 @@ This "Healthy Weight" formula from Blue Buffalo is one of the strongest contende
 
 **Who it's best for:** This is an excellent choice for adult dogs who need to lose weight, maintain a healthy weight, or, most importantly for this article, those needing a lower-fat diet to manage pancreatitis. Its reduced fat content makes it one of the most promising options on this list to discuss with your veterinarian for dogs with this condition.
 
-<AffiliateButton asin="B0009YUI86" productName="Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food, Supports an Ideal Weight, Made with Natural Ingredients, Chicken & Brown Rice Recipe, 30-lb Bag" />
+<div class="product-box">
+<img src="/images/products/B0009YUI86.jpg" alt="Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food" loading="lazy" />
+<div class="product-info">
+<h4>Blue Buffalo Life Protection Formula Healthy Weight Adult Dry Dog Food</h4>
+<p>Lower calorie and fat formula perfect for weight management and pancreatitis support. Real chicken, wholesome grains, and LifeSource Bits for complete nutrition. 30 lb bag.</p>
+<a href="https://www.amazon.com/dp/B0009YUI86?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Hill's Science Diet Adult Sensitive Stomach & Skin Small Bites Dry Dog Food, Chicken, 4 lb. Bag
-
-<img src="/images/products/B083FHFTMN.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Small Bites Dry Dog Food, Chicken, 4 lb. Bag" loading="lazy" />
 
 Another variation of Hill's popular Sensitive Stomach & Skin formula, this "Small Bites" version caters to dogs who prefer or require smaller kibble, regardless of their breed size. It carries all the benefits of the original formula: highly digestible ingredients, prebiotic fiber, and skin-supporting nutrients. For dogs with pancreatitis, the emphasis on digestibility is a key factor, though the fat content still needs to be confirmed by a vet. The smaller kibble can also be easier for some dogs to eat if they are feeling unwell or have dental issues.
 
@@ -291,13 +314,18 @@ Another variation of Hill's popular Sensitive Stomach & Skin formula, this "Smal
 
 **Who it's best for:** This is a versatile option for adult dogs of any size who have sensitive digestion and skin issues and prefer smaller kibble. For dogs with pancreatitis, its digestibility is a benefit, but as with other "sensitive stomach" foods, the fat content needs to be carefully considered and approved by your veterinarian.
 
-<AffiliateButton asin="B083FHFTMN" productName="Hill's Science Diet Adult Sensitive Stomach & Skin Small Bites Dry Dog Food, Chicken, 4 lb. Bag" />
+<div class="product-box">
+<img src="/images/products/B083FHFTMN.jpg" alt="Hill's Science Diet Adult Sensitive Stomach & Skin Small Bites" loading="lazy" />
+<div class="product-info">
+<h4>Hill's Science Diet Adult Sensitive Stomach & Skin Small Bites</h4>
+<p>Small kibble formula with easily digestible ingredients and prebiotic fiber. Supports sensitive digestion and healthy skin with omega-6 fatty acids and vitamin E.</p>
+<a href="https://www.amazon.com/dp/B083FHFTMN?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
 ### Hill's Science Diet Adult Perfect Weight Small & Mini Dry Dog Food, Chicken, 4 lb. Bag
-
-<img src="/images/products/B00TH3MMDE.jpg" alt="Hill's Science Diet Adult Perfect Weight Small & Mini Dry Dog Food, Chicken, 4 lb. Bag" loading="lazy" />
 
 Similar to Blue Buffalo's Healthy Weight formula, Hill's Science Diet Adult Perfect Weight is specifically designed for weight management, but for small and mini breeds. This makes it another strong contender as the **best dog food for dogs with pancreatitis** in the small breed category. Weight management diets are typically formulated with reduced fat and calories, which is precisely what dogs with pancreatitis require. It aims to help dogs achieve and maintain a healthy weight while providing complete and balanced nutrition, including L-carnitine to support fat metabolism.
 
@@ -329,7 +357,14 @@ Similar to Blue Buffalo's Healthy Weight formula, Hill's Science Diet Adult Perf
 
 **Who it's best for:** This is an excellent choice for small and mini adult dogs who need to lose weight, maintain a healthy weight, or require a lower-fat diet due to pancreatitis. Its focus on "Perfect Weight" directly translates to a lower-fat profile, making it a highly recommended option to discuss with your veterinarian for small dogs suffering from this condition.
 
-<AffiliateButton asin="B00TH3MMDE" productName="Hill's Science Diet Adult Perfect Weight Small & Mini Dry Dog Food, Chicken, 4 lb. Bag" />
+<div class="product-box">
+<img src="/images/products/B00TH3MMDE.jpg" alt="Hill's Science Diet Adult Perfect Weight Small & Mini Dry Dog Food" loading="lazy" />
+<div class="product-info">
+<h4>Hill's Science Diet Adult Perfect Weight Small & Mini</h4>
+<p>Weight management formula with reduced calories and fat for small breeds. Contains L-carnitine for metabolism and high-quality protein for lean muscle. Perfect for pancreatitis support.</p>
+<a href="https://www.amazon.com/dp/B00TH3MMDE?tag=petslife-20" target="_blank" rel="nofollow noopener sponsored" class="amazon-button">Check Price on Amazon</a>
+</div>
+</div>
 
 ---
 
