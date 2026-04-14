@@ -80,6 +80,15 @@ const structuredData = jsonLd || defaultJsonLd;
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XHXLJQFKCC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XHXLJQFKCC');
+  </script>
+
   <style is:global>
     /* Reset */
     *, *::before, *::after {
